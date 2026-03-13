@@ -4,453 +4,973 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ASE 2026 – Dr. Ambedkar Symposium on Emancipation</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════
-   TOKENS
+   FONT SYSTEM
+   — Raleway       : Display, Section Headings  (700 800 900)
+   — Montserrat    : UI Chrome — nav, labels, badges, buttons, card titles  (400 500 600 700 800)
+   — DM Sans       : Body copy, bios, descriptions, running text  (400 500 600)
+   — Dancing Script: Decorative pull-quote accent only  (700)
+   All weights ≥ 400 Regular — no Light / ExtraLight
 ═══════════════════════════════════════ */
+
+/* ── DESIGN TOKENS ── */
 :root {
-  --blue-deep:   #0b1d3a;
-  --blue-mid:    #1d4e89;   /* pantone 19-4052 */
-  --blue-bright: #1a6dc8;
-  --card-back:   #eef2f7;   /* light blue-grey */
-  --accent:      #5b7fa6;  /* medium blue-grey */
-  --accent-lt:   #ffffff;  /* white */
-  --white:       #ffffff;
-  --off-white:   #f7f8fb;
-  --text:        #1a2233;
-  --text-mid:    #445269;
-  --text-muted:  #8898aa;
-  --border:      #dde3ec;
+  /* Palette */
+  --blue-deep:    #0b1d3a;
+  --blue-mid:     #1d4e89;
+  --blue-bright:  #1a6dc8;
+  --blue-tint:    #e8f1fb;
+  --card-back:    #eef2f7;
+  --accent:       #5b7fa6;
+  --white:        #ffffff;
+  --off-white:    #f6f8fc;
+  --text:         #111827;
+  --text-mid:     #374151;
+  --text-muted:   #6b7280;
+  --border:       #dde3ec;
+  --mod-color:    #0d7a5f;
+  --pan-color:    #1d4e89;
+  --both-color:   #7b3fa0;
+
+  /* Font families */
+  --f-display:  'Raleway', sans-serif;
+  --f-ui:       'Montserrat', sans-serif;
+  --f-body:     'DM Sans', sans-serif;
+  --f-script:   'Dancing Script', cursive;
+
+  /* Type scale (major-third 1.25) */
+  --text-xs:    0.72rem;   /* 11.5px  — captions, micro labels */
+  --text-sm:    0.82rem;   /* 13px    — secondary info, timestamps */
+  --text-base:  0.95rem;   /* 15px    — body copy */
+  --text-md:    1.05rem;   /* 16.8px  — lead paragraphs */
+  --text-lg:    1.2rem;    /* 19px    — card titles, subheadings */
+  --text-xl:    1.45rem;   /* 23px    — section sub-headings */
+  --text-2xl:   1.75rem;   /* 28px    — section headings (mobile) */
+  --text-3xl:   2.2rem;    /* 35px    */
+  --text-4xl:   2.8rem;    /* 44px    */
+
+  /* Spacing */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px;
+  --sp-12: 48px; --sp-16: 64px; --sp-20: 80px;
+
+  /* Radii */
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 20px;
 }
 
-/* ═══════════════════════════════════════
-   RESET / BASE
-═══════════════════════════════════════ */
+/* ── RESET ── */
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
-  font-family:'Montserrat',sans-serif;
-  background:var(--white);
-  color:var(--text);
-  overflow-x:hidden;
+  font-family: var(--f-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  background: var(--white);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-h1,h2,h3,h4,h5,h6{font-family:Helvetica,Arial,sans-serif;}
 
-/* ═══════════════════════════════════════
+/* ── GLOBAL TYPE ROLES ── */
+/* Display: Raleway — hero & large section titles */
+.t-display {
+  font-family: var(--f-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+}
+/* Heading: Raleway — section h2 */
+.t-heading {
+  font-family: var(--f-display);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+/* UI: Montserrat — labels, nav, buttons, badges */
+.t-ui {
+  font-family: var(--f-ui);
+  font-weight: 600;
+}
+/* Body: DM Sans — paragraphs, bios */
+.t-body {
+  font-family: var(--f-body);
+  font-weight: 400;
+  line-height: 1.78;
+}
+
+/* ════════════════════════════════════
    NAV
-═══════════════════════════════════════ */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:15px 28px;
-  background:rgba(11,29,58,0.95);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(255,255,255,0.07);
+════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 28px;
+  background: rgba(11,29,58,0.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
 }
-.nav-logo{
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:1.2rem;font-weight:700;letter-spacing:0.05em;
-  color:var(--accent-lt);
+.nav-logo {
+  font-family: var(--f-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #fff;
 }
-.hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
-.hamburger span{display:block;width:26px;height:2px;background:var(--accent-lt);border-radius:2px;transition:all .35s ease;}
+.hamburger {
+  display: flex; flex-direction: column; gap: 5px;
+  cursor: pointer; background: none; border: none; padding: 4px;
+}
+.hamburger span {
+  display: block; width: 26px; height: 2px;
+  background: #fff; border-radius: 2px; transition: all .35s ease;
+}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .hamburger.open span:nth-child(2){opacity:0;}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-
-.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:998;display:none;backdrop-filter:blur(3px);}
+.nav-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.55);
+  z-index: 998; display: none; backdrop-filter: blur(3px);
+}
 .nav-overlay.open{display:block;}
-.nav-drawer{
-  position:fixed;top:0;right:-100%;width:min(300px,85vw);height:100vh;
-  background:var(--blue-deep);border-left:1px solid rgba(255,255,255,.08);
-  z-index:999;transition:right .4s cubic-bezier(.4,0,.2,1);
-  display:flex;flex-direction:column;padding:85px 32px 40px;gap:2px;overflow-y:auto;
+.nav-drawer {
+  position: fixed; top: 0; right: -100%;
+  width: min(300px,85vw); height: 100vh;
+  background: var(--blue-deep);
+  border-left: 1px solid rgba(255,255,255,.08);
+  z-index: 999; transition: right .4s cubic-bezier(.4,0,.2,1);
+  display: flex; flex-direction: column;
+  padding: 80px 32px 40px; gap: 0; overflow-y: auto;
 }
 .nav-drawer.open{right:0;}
-.nav-drawer a{
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:1.05rem;font-weight:600;
-  color:rgba(255,255,255,.82);text-decoration:none;
-  padding:12px 0;border-bottom:1px solid rgba(255,255,255,.07);
-  transition:color .2s;letter-spacing:.02em;
+.nav-drawer a {
+  font-family: var(--f-ui);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.80);
+  text-decoration: none;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  transition: color .2s, padding-left .2s;
+  letter-spacing: .01em;
 }
-.nav-drawer a:hover{color:var(--accent-lt);}
+.nav-drawer a:hover{color:#fff; padding-left: 6px;}
 
-/* ═══════════════════════════════════════
-   HERO – animated water threads
-═══════════════════════════════════════ */
-#hero{
-  min-height:100vh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:100px 24px 0;
-  position:relative;overflow:hidden;
+/* ════════════════════════════════════
+   HERO
+════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 100px 24px 0;
+  position: relative; overflow: hidden;
 }
-/* layered gradient water */
-#hero::before{
-  content:'';position:absolute;inset:0;
-  background:
-    linear-gradient(175deg,#05122a 0%,#0c2550 30%,#1557a0 62%,#1a6dc8 80%,#2280d8 100%);
-  z-index:0;
+#hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(175deg,#04101f 0%,#0c2550 28%,#1557a0 60%,#1a6dc8 80%,#2280d8 100%);
+  z-index: 0;
 }
-/* animated flowing thread lines */
-.wave-canvas{
-  position:absolute;inset:0;z-index:1;
-  opacity:.55;pointer-events:none;
-}
-.hero-content{position:relative;z-index:2;width:100%;max-width:820px;}
+.wave-canvas{position:absolute;inset:0;z-index:1;opacity:.5;pointer-events:none;}
+.hero-content{position:relative;z-index:2;width:100%;max-width:860px;}
 
-.hero-badge{
-  display:inline-block;
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(255,255,255,.9);
-  border:1px solid rgba(255,255,255,.3);
-  background:rgba(255,255,255,.08);
-  padding:6px 20px;border-radius:100px;margin-bottom:22px;
-  backdrop-filter:blur(4px);
-  animation:fadeUp .8s ease both;
+/* Badge — Montserrat label style */
+.hero-badge {
+  display: inline-block;
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.88);
+  border: 1px solid rgba(255,255,255,.28);
+  background: rgba(255,255,255,.09);
+  padding: 7px 22px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(4px);
+  animation: fadeUp .8s ease both;
 }
-.hero-event-name{
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:clamp(3.8rem,12vw,8rem);font-weight:700;line-height:.9;
-  letter-spacing:-.03em;color:#fff;
-  margin-bottom:18px;
-  animation:fadeUp .9s .1s ease both;
-}
-.hero-event-name span{color:var(--white);}
-.hero-title{
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:clamp(.95rem,2.4vw,1.3rem);font-weight:400;
-  color:rgba(255,255,255,.85);max-width:680px;line-height:1.6;
-  margin:0 auto 22px;
-  animation:fadeUp .9s .2s ease both;
-}
-.hero-meta{
-  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;
-  margin-bottom:50px;
-  animation:fadeUp .9s .3s ease both;
-}
-.hero-meta-pill{
-  display:flex;align-items:center;gap:7px;
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  color:rgba(255,255,255,.75);
-  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
-  padding:7px 18px;border-radius:6px;
-  backdrop-filter:blur(6px);
-}
-.hero-meta-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--accent-lt);}
 
-/* sponsors strip */
-.sponsors-hero{
-  width:100%;max-width:760px;margin:0 auto;
-  border-top:1px solid rgba(255,255,255,.15);
-  padding:28px 0 80px;
-  animation:fadeUp 1s .45s ease both;
+/* ASE 2026 — Raleway display */
+.hero-event-name {
+  font-family: var(--f-display);
+  font-size: clamp(4.5rem, 14vw, 9.5rem);
+  font-weight: 900;
+  line-height: .88;
+  letter-spacing: -.04em;
+  color: #fff;
+  margin-bottom: 20px;
+  animation: fadeUp .9s .1s ease both;
 }
-.sponsors-label{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:18px;}
-.sponsors-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;}
-.sponsor-tag{
-  display:flex;align-items:center;gap:7px;
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
-  border-radius:7px;padding:9px 20px;
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:.82rem;font-weight:700;letter-spacing:.07em;color:rgba(255,255,255,.88);
-  transition:background .2s;
-}
-.sponsor-tag:hover{background:rgba(255,255,255,.14);}
-.sponsor-tag .s-dot{width:7px;height:7px;border-radius:50%;background:var(--accent-lt);}
 
-/* wave divider */
+/* "Dr. Ambedkar..." — Montserrat medium, subdued */
+.hero-ase-full {
+  font-family: var(--f-ui);
+  font-size: clamp(.9rem, 2vw, 1.1rem);
+  font-weight: 500;
+  color: rgba(255,255,255,.72);
+  max-width: 640px;
+  line-height: 1.55;
+  margin: 0 auto 10px;
+  letter-spacing: .05em;
+  animation: fadeUp .9s .18s ease both;
+}
+
+/* "Overcoming Caste Barriers..." — Raleway bold, prominent */
+.hero-overcoming {
+  font-family: var(--f-display);
+  font-size: clamp(1.2rem, 3.4vw, 2rem);
+  font-weight: 700;
+  color: rgba(255,255,255,.97);
+  max-width: 720px;
+  line-height: 1.3;
+  margin: 0 auto 32px;
+  letter-spacing: -.01em;
+  animation: fadeUp .9s .26s ease both;
+}
+
+/* Venue rows */
+.hero-venues {
+  display: flex; flex-direction: column; gap: 10px;
+  align-items: center; margin-bottom: 28px;
+  animation: fadeUp .9s .32s ease both;
+}
+.hero-venue-row {
+  display: flex; align-items: center; gap: 14px;
+  flex-wrap: wrap; justify-content: center;
+}
+.hero-venue-date {
+  font-family: var(--f-ui);
+  font-size: .8rem;
+  font-weight: 700;
+  color: #7dd3fc;
+  letter-spacing: .06em;
+  min-width: 72px;
+  text-transform: uppercase;
+}
+.hero-venue-text {
+  font-family: var(--f-body);
+  font-size: .85rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.80);
+}
+
+/* Film pill */
+.hero-film-pill {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: var(--r-lg);
+  padding: 16px 22px;
+  margin: 0 auto 30px;
+  max-width: 500px;
+  text-align: left;
+  animation: fadeUp .9s .38s ease both;
+}
+.hero-film-pill .film-label {
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 3px;
+}
+.hero-film-pill .film-title {
+  font-family: var(--f-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: .02em;
+  margin-bottom: 4px;
+}
+.hero-film-pill .film-detail {
+  font-family: var(--f-body);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: rgba(255,255,255,.68);
+}
+.film-ticket-btn {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.32);
+  border-radius: var(--r-sm);
+  padding: 7px 16px;
+  text-decoration: none;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  transition: background .2s;
+}
+.film-ticket-btn:hover{background:rgba(255,255,255,.28);}
+
+/* Sponsors strip */
+.sponsors-hero {
+  width: 100%; max-width: 780px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255,255,255,.14);
+  padding: 26px 0 80px;
+  animation: fadeUp 1s .46s ease both;
+}
+.sponsors-label {
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.36);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+.sponsors-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;}
+.sponsor-tag {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: var(--r-sm);
+  padding: 7px 14px;
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: rgba(255,255,255,.82);
+  transition: background .2s;
+}
+.sponsor-tag:hover{background:rgba(255,255,255,.13);}
+.sponsor-tag .s-dot{width:5px;height:5px;border-radius:50%;background:#7dd3fc;flex-shrink:0;}
+.individual-sponsors {
+  font-family: var(--f-body);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: rgba(255,255,255,.40);
+  margin-top: 14px;
+}
+
+/* Wave divider */
 .hero-wave{position:absolute;bottom:-1px;left:0;right:0;z-index:3;line-height:0;}
 .hero-wave svg{display:block;width:100%;}
 
-/* ═══════════════════════════════════════
-   SECTION COMMON
-═══════════════════════════════════════ */
-section{padding:86px 24px;background:var(--white);}
-.bg-alt{background:var(--off-white)!important;}
-.section-inner{max-width:920px;margin:0 auto;}
-.sec-label{
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--blue-mid);margin-bottom:10px;
-  display:flex;align-items:center;gap:10px;
-}
-.sec-label::after{content:'';flex:1;max-width:48px;height:1px;background:var(--blue-mid);}
-.sec-heading{
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:clamp(1.9rem,4.5vw,3rem);font-weight:700;line-height:1.1;
-  color:var(--blue-deep);margin-bottom:28px;
-}
-.sec-body{font-size:.95rem;line-height:1.88;color:var(--text-mid);}
-.sec-body p+p{margin-top:14px;}
+/* ════════════════════════════════════
+   SECTIONS — COMMON
+════════════════════════════════════ */
+section{padding: var(--sp-20) var(--sp-6); background: var(--white);}
+.bg-alt{background: var(--off-white) !important;}
+.section-inner{max-width: 960px; margin: 0 auto;}
 
-.quote-pull{
-  border-left:3px solid var(--blue-mid);
-  padding:14px 22px;margin:26px 0;
-  background:rgba(29,78,137,.05);border-radius:0 8px 8px 0;
-  font-size:1.05rem;font-style:italic;color:var(--blue-deep);line-height:1.72;
+/* Section label — Montserrat uppercase micro */
+.sec-label {
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--blue-mid);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 12px;
 }
-.quote-pull cite{display:block;font-size:.78rem;color:var(--blue-mid);margin-top:9px;font-style:normal;letter-spacing:.07em;}
+.sec-label::after{content:'';flex:1;max-width:44px;height:2px;background:var(--blue-mid);border-radius:2px;}
 
-/* ═══════════════════════════════════════
+/* Section heading — Raleway display */
+.sec-heading {
+  font-family: var(--f-display);
+  font-size: clamp(var(--text-2xl), 4.5vw, var(--text-4xl));
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--blue-deep);
+  margin-bottom: 28px;
+}
+
+/* Body copy — DM Sans */
+.sec-body {
+  font-family: var(--f-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.82;
+  color: var(--text-mid);
+}
+.sec-body p + p{margin-top: 16px;}
+.sec-body strong{font-weight: 600; color: var(--text);}
+.sec-body em{font-style: italic;}
+
+/* Pull quote — DM Sans italic, Montserrat cite */
+.quote-pull {
+  border-left: 3px solid var(--blue-mid);
+  padding: 16px 24px;
+  margin: 28px 0;
+  background: rgba(29,78,137,.05);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  font-family: var(--f-body);
+  font-size: var(--text-md);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--blue-deep);
+  line-height: 1.72;
+}
+.quote-pull cite {
+  display: block;
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--blue-mid);
+  margin-top: 10px;
+  font-style: normal;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+/* ════════════════════════════════════
    CHETNA SECTION
-═══════════════════════════════════════ */
-.chetna-top{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:start;margin-bottom:36px;}
+════════════════════════════════════ */
+.chetna-top{display:grid;grid-template-columns:180px 1fr;gap:36px;align-items:start;margin-bottom:32px;}
 @media(max-width:600px){.chetna-top{grid-template-columns:1fr;}}
-.chetna-logo{
-  width:100%;aspect-ratio:1;border-radius:14px;
-  background:var(--blue-mid);
-  display:flex;align-items:center;justify-content:center;
-  font-family:Helvetica,Arial,sans-serif;font-size:2.2rem;font-weight:700;color:#fff;
-  box-shadow:0 4px 20px rgba(29,78,137,.25);
-}
-.chetna-group-img{
-  width:100%;height:220px;background:linear-gradient(135deg,#d1e0f4,#e8f0fa);
-  border-radius:12px;border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.8rem;color:var(--text-muted);margin-top:24px;
+.chetna-logo {
+  width: 100%; aspect-ratio: 1; border-radius: var(--r-lg);
+  background: linear-gradient(135deg, var(--blue-mid), var(--blue-deep));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-display);
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(29,78,137,.3);
 }
 
-/* ── TIMELINE ── */
-.timeline-section{margin-top:52px;}
-.timeline-title{
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:1.15rem;font-weight:700;color:var(--blue-deep);margin-bottom:32px;
-  display:flex;align-items:center;gap:10px;
-}
-.timeline-title::before{content:'';display:block;width:4px;height:20px;background:var(--blue-mid);border-radius:2px;}
-.tl-outer{overflow-x:auto;padding-bottom:16px;}
-.tl-inner{
-  display:flex;align-items:flex-start;gap:0;
-  min-width:900px;padding:0 20px 40px;
-  position:relative;
-}
-.tl-line{
-  position:absolute;top:18px;left:20px;right:20px;height:2px;
-  background:repeating-linear-gradient(90deg,var(--blue-mid) 0,var(--blue-mid) 8px,transparent 8px,transparent 16px);
-}
-.tl-node{
-  display:flex;flex-direction:column;align-items:center;
-  flex:1;position:relative;cursor:pointer;
-}
-.tl-dot{
-  width:14px;height:14px;border-radius:50%;
-  background:var(--blue-mid);border:2px solid #fff;
-  box-shadow:0 0 0 3px var(--blue-mid);
-  z-index:1;transition:transform .2s,box-shadow .2s;
-  margin-bottom:8px;
-}
-.tl-node:hover .tl-dot,.tl-node.active .tl-dot{
-  transform:scale(1.5);
-  box-shadow:0 0 0 4px rgba(255,255,255,0.6);
-}
-.tl-year{
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:.72rem;font-weight:700;color:var(--blue-mid);
-  letter-spacing:.06em;text-align:center;
-}
-/* milestone popup */
-.tl-popup{
-  position:absolute;bottom:calc(100% + 14px);left:50%;
-  transform:translateX(-50%) scale(.9);
-  background:var(--blue-mid);color:#fff;
-  border-radius:10px;padding:12px 16px;
-  width:220px;font-size:.78rem;line-height:1.6;
-  opacity:0;pointer-events:none;
-  transition:opacity .25s,transform .25s;
-  z-index:10;
-  box-shadow:0 8px 24px rgba(29,78,137,.35);
-}
-.tl-popup::after{
-  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
-  border:7px solid transparent;border-top-color:var(--blue-mid);
-}
-.tl-node.active .tl-popup{opacity:1;pointer-events:auto;transform:translateX(-50%) scale(1);}
-.tl-popup strong{display:block;color:var(--accent-lt);font-size:.8rem;margin-bottom:4px;}
-
-/* ═══════════════════════════════════════
-   ACCORDION
-═══════════════════════════════════════ */
-.accordion{display:flex;flex-direction:column;gap:9px;margin-top:14px;}
-.acc-item{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--white);box-shadow:0 1px 4px rgba(0,0,0,.04);}
-.acc-header{display:flex;align-items:center;padding:16px 20px;cursor:pointer;gap:12px;transition:background .2s;}
+/* ════════════════════════════════════
+   ACCORDION / SCHEDULE
+════════════════════════════════════ */
+.accordion{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
+.acc-item{border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;background:var(--white);box-shadow:0 1px 4px rgba(0,0,0,.04);}
+.acc-header{display:flex;align-items:center;padding:16px 20px;cursor:pointer;gap:14px;transition:background .2s;}
 .acc-header:hover{background:rgba(29,78,137,.04);}
-.acc-time{font-family:Helvetica,Arial,sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.09em;color:var(--blue-mid);white-space:nowrap;min-width:82px;}
-.acc-title{font-family:Helvetica,Arial,sans-serif;font-size:1rem;font-weight:600;color:var(--blue-deep);flex:1;}
+.acc-time {
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--blue-mid);
+  white-space: nowrap;
+  min-width: 78px;
+}
+.acc-title {
+  font-family: var(--f-display);
+  font-size: .97rem;
+  font-weight: 700;
+  color: var(--blue-deep);
+  flex: 1;
+  line-height: 1.35;
+}
 .acc-icon{width:22px;height:22px;flex-shrink:0;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .3s,background .2s;color:var(--blue-mid);font-size:1rem;}
 .acc-item.open .acc-icon{transform:rotate(45deg);background:var(--blue-mid);color:#fff;border-color:var(--blue-mid);}
-.acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s;padding:0 20px;font-size:.9rem;line-height:1.8;color:var(--text-mid);}
-.acc-item.open .acc-body{max-height:500px;padding:2px 20px 18px;}
-.day-badge{display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;background:var(--blue-mid);color:#fff;padding:4px 12px;border-radius:4px;margin-bottom:12px;}
+.acc-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height .35s ease, padding .3s;
+  padding: 0 20px;
+  font-family: var(--f-body);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  line-height: 1.78;
+  color: var(--text-mid);
+}
+.acc-item.open .acc-body{max-height:500px;padding:4px 20px 18px;}
+.day-badge {
+  display: inline-block;
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  background: var(--blue-mid);
+  color: #fff;
+  padding: 5px 14px;
+  border-radius: var(--r-sm);
+  margin-bottom: 12px;
+}
 
-/* ═══════════════════════════════════════
-   FLIP CARDS – EMANCIPATION
-═══════════════════════════════════════ */
+/* ════════════════════════════════════
+   EMANCIPATION FLIP CARDS
+════════════════════════════════════ */
 #emancipation{overflow:hidden;}
-.eman-intro{max-width:720px;margin-bottom:40px;}
-.eman-intro h3{font-family:Helvetica,Arial,sans-serif;font-size:1.5rem;font-weight:700;color:var(--blue-deep);margin-bottom:12px;}
+.eman-intro{max-width:740px;margin-bottom:40px;}
+.eman-intro h3 {
+  font-family: var(--f-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--blue-deep);
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+.eman-intro .sec-body{margin-top:12px;}
 .flip-carousel-wrap{position:relative;overflow:hidden;margin-top:8px;}
 .flip-track{display:flex;gap:20px;transition:transform .5s cubic-bezier(.4,0,.2,1);will-change:transform;}
 .flip-card{flex-shrink:0;width:clamp(250px,72vw,300px);height:370px;perspective:1200px;cursor:pointer;}
 .flip-inner{width:100%;height:100%;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.4,0,.2,1);position:relative;}
 .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
-.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;padding:28px 24px;}
-.flip-front{
-  background:var(--blue-mid);  /* #1d4e89 */
-  align-items:flex-start;justify-content:flex-end;
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r-lg);display:flex;flex-direction:column;padding:28px 24px;}
+.flip-front{background:var(--blue-mid);align-items:flex-start;justify-content:flex-end;}
+.flip-back{background:var(--card-back);transform:rotateY(180deg);overflow-y:auto;}
+.f-emoji{font-size:2rem;margin-bottom:14px;}
+.f-title {
+  font-family: var(--f-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 10px;
 }
-.flip-back{
-  background:var(--card-back);  /* light blue-grey */
-  transform:rotateY(180deg);
-  overflow-y:auto;
+.f-hint {
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: .14em;
+  color: rgba(255,255,255,.6);
+  text-transform: uppercase;
 }
-.f-emoji{font-size:2rem;margin-bottom:12px;}
-.f-title{font-family:Helvetica,Arial,sans-serif;font-size:1.35rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px;}
-.f-hint{font-size:.68rem;letter-spacing:.14em;color:rgba(255,255,255,.6);text-transform:uppercase;}
-.b-title{font-family:Helvetica,Arial,sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-deep);margin-bottom:10px;}
-.b-text{font-size:.82rem;line-height:1.72;color:var(--blue-deep);}
-.b-text ul{margin:6px 0 0 14px;}
-.b-text li{margin-bottom:4px;}
-
+.b-title {
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--blue-deep);
+  margin-bottom: 12px;
+}
+.b-text {
+  font-family: var(--f-body);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  line-height: 1.72;
+  color: var(--blue-deep);
+}
+.b-text ul{margin:6px 0 0 16px;}
+.b-text li{margin-bottom:5px;}
+.b-text strong{font-weight:600;}
 .car-controls{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:26px;}
 .car-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:#fff;color:var(--blue-deep);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;box-shadow:0 2px 8px rgba(0,0,0,.06);}
 .car-btn:hover{background:var(--blue-mid);color:#fff;}
 .car-dots{display:flex;gap:6px;}
 .cdot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:background .3s,transform .3s;}
-.cdot.active{background:var(--blue-mid);transform:scale(1.4);}
+.cdot.active{background:var(--blue-mid);transform:scale(1.5);}
 
-/* ═══════════════════════════════════════
-   PANELISTS CAROUSEL BY DAY
-═══════════════════════════════════════ */
-.day-tabs{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap;}
-.day-tab{
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  padding:8px 22px;border-radius:6px;cursor:pointer;
-  border:2px solid var(--blue-mid);color:var(--blue-mid);background:#fff;
-  transition:all .2s;
+/* ════════════════════════════════════
+   SPEAKER CARDS
+════════════════════════════════════ */
+.sp-filter-bar{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;align-items:center;}
+.sp-filter-label {
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+.day-tab {
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  border: 2px solid var(--blue-mid);
+  color: var(--blue-mid);
+  background: #fff;
+  transition: all .2s;
 }
 .day-tab.active{background:var(--blue-mid);color:#fff;}
+
 .speakers-wrap{position:relative;overflow:hidden;}
 .speakers-track{display:flex;gap:18px;transition:transform .5s cubic-bezier(.4,0,.2,1);}
-.speaker-card{
-  flex-shrink:0;width:clamp(200px,55vw,240px);
-  border:1px solid var(--border);border-radius:14px;overflow:hidden;
-  background:#fff;cursor:pointer;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
-  transition:transform .2s,box-shadow .2s;
-  perspective:1000px;
+
+.speaker-card {
+  flex-shrink: 0;
+  width: clamp(220px,60vw,264px);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0,0,0,.07);
+  transition: transform .22s, box-shadow .22s;
+  perspective: 1000px;
 }
-.speaker-card:hover{transform:translateY(-4px);box-shadow:0 8px 22px rgba(0,0,0,.1);}
-.sp-inner{width:100%;height:340px;transform-style:preserve-3d;transition:transform .6s ease;position:relative;}
+.speaker-card:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(0,0,0,.13);}
+.sp-inner{width:100%;height:440px;transform-style:preserve-3d;transition:transform .6s ease;position:relative;}
 .speaker-card.flipped .sp-inner{transform:rotateY(180deg);}
 .sp-front,.sp-back{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;}
 .sp-front{background:#fff;}
-.sp-back{background:var(--blue-mid);transform:rotateY(180deg);padding:20px 18px;justify-content:center;}
-.sp-avatar{
-  height:140px;background:linear-gradient(135deg,var(--blue-mid),#0b1d3a);
-  display:flex;align-items:center;justify-content:center;
-  font-family:Helvetica,Arial,sans-serif;font-size:2.2rem;font-weight:700;color:#fff;
-  letter-spacing:.04em;
-}
-.sp-info{padding:16px 16px 14px;}
-.sp-name{font-family:Helvetica,Arial,sans-serif;font-size:1rem;font-weight:700;color:var(--blue-deep);margin-bottom:4px;}
-.sp-role{font-size:.72rem;color:var(--blue-mid);letter-spacing:.06em;font-weight:600;text-transform:uppercase;margin-bottom:6px;}
-.sp-org{font-size:.78rem;color:var(--text-muted);line-height:1.5;}
-.sp-flip-hint{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-top:8px;}
-.sp-back-body{font-size:.8rem;line-height:1.72;color:rgba(255,255,255,.88);}
-.sp-back-name{font-family:Helvetica,Arial,sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:8px;}
-.sp-back-role{font-size:.68rem;color:rgba(255,255,255,0.7);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
+.sp-back{background:linear-gradient(160deg,var(--blue-mid),var(--blue-deep));transform:rotateY(180deg);padding:20px 18px;overflow-y:auto;}
 
-/* ═══════════════════════════════════════
+/* Photo frame */
+.sp-avatar{height:130px;background:linear-gradient(145deg,var(--blue-bright),var(--blue-deep));display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sp-photo-frame {
+  width: 88px; height: 88px; border-radius: 50%;
+  border: 3px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.12);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  overflow: hidden;
+}
+.sp-photo-frame img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+
+/* Card front info */
+.sp-info{padding:16px 15px 13px;flex:1;display:flex;flex-direction:column;gap:3px;}
+.sp-name {
+  font-family: var(--f-display);
+  font-size: .92rem;
+  font-weight: 700;
+  color: var(--blue-deep);
+  line-height: 1.25;
+}
+.sp-role-pro {
+  font-family: var(--f-body);
+  font-size: .73rem;
+  font-weight: 500;
+  color: var(--text-mid);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+.sp-org {
+  font-family: var(--f-body);
+  font-size: .71rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.35;
+  font-style: italic;
+}
+.sp-sessions{margin-top:10px;display:flex;flex-direction:column;gap:6px;}
+.sp-session{display:flex;align-items:center;flex-wrap:wrap;gap:5px;}
+.sess-date {
+  font-family: var(--f-ui);
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.sess-time {
+  font-family: var(--f-ui);
+  font-size: .68rem;
+  font-weight: 600;
+  color: var(--blue-mid);
+}
+.sess-role-badge {
+  font-family: var(--f-ui);
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #fff;
+}
+.badge-mod{background:var(--mod-color);}
+.badge-pan{background:var(--pan-color);}
+.badge-both{background:var(--both-color);}
+.sp-flip-hint {
+  font-family: var(--f-ui);
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+/* Card back */
+.sp-back-name {
+  font-family: var(--f-display);
+  font-size: .95rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+.sp-back-org {
+  font-family: var(--f-body);
+  font-size: .7rem;
+  font-weight: 400;
+  color: rgba(255,255,255,.62);
+  margin-bottom: 12px;
+  font-style: italic;
+}
+.sp-back-body {
+  font-family: var(--f-body);
+  font-size: .74rem;
+  font-weight: 400;
+  line-height: 1.72;
+  color: rgba(255,255,255,.90);
+  flex: 1;
+}
+.sp-back-link {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--f-ui);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: var(--r-sm);
+  padding: 7px 14px;
+  text-decoration: none;
+  transition: background .2s;
+}
+.sp-back-link:hover{background:rgba(255,255,255,.28);}
+
+/* Role legend */
+.role-legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:22px;}
+.legend-item {
+  display: flex; align-items: center; gap: 7px;
+  font-family: var(--f-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-mid);
+}
+.legend-dot{width:10px;height:10px;border-radius:3px;}
+
+/* ════════════════════════════════════
    VOLUNTEERS REEL
-═══════════════════════════════════════ */
-.reel-outer{overflow:hidden;width:100%;margin-top:26px;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
-.reel-track{display:flex;width:max-content;animation:reel 34s linear infinite;}
+════════════════════════════════════ */
+.reel-outer{overflow:hidden;width:100%;margin-top:28px;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
+.reel-track{display:flex;width:max-content;animation:reel 42s linear infinite;}
 .reel-track:hover{animation-play-state:paused;}
-.reel-item{display:flex;align-items:center;gap:9px;padding:0 26px;white-space:nowrap;font-size:.9rem;font-weight:500;color:var(--text);border-right:1px solid var(--border);}
-.reel-star{color:var(--blue-mid);font-size:.5rem;}
+.reel-item {
+  display: flex; align-items: center; gap: 9px;
+  padding: 0 28px;
+  white-space: nowrap;
+  font-family: var(--f-body);
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--text);
+  border-right: 1px solid var(--border);
+}
+.reel-star{color:var(--blue-mid);font-size:.45rem;}
 @keyframes reel{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ═══════════════════════════════════════
-   AFTER SYMPOSIUM / CTA
-═══════════════════════════════════════ */
-.after-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;margin-top:18px;}
-.after-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px 20px;transition:box-shadow .2s,transform .2s;box-shadow:0 1px 5px rgba(0,0,0,.04);}
-.after-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.09);}
-.after-icon{font-size:1.7rem;margin-bottom:11px;}
-.after-title{font-family:Helvetica,Arial,sans-serif;font-size:1rem;font-weight:700;color:var(--blue-deep);margin-bottom:7px;}
-.after-body{font-size:.83rem;color:var(--text-mid);line-height:1.72;}
-
-/* calligraphy CTA */
-.calligraphy-cta{
-  margin-top:54px;text-align:center;padding:50px 24px;
-  background:linear-gradient(135deg,#f0f4fb,#e8f0fa);
-  border-radius:20px;border:1px solid var(--border);
+/* ════════════════════════════════════
+   AFTER SYMPOSIUM
+════════════════════════════════════ */
+.after-survey-wrap{margin-top:12px;text-align:center;}
+.calligraphy-cta {
+  margin-top: 12px;
+  text-align: center;
+  padding: 44px 28px;
+  background: linear-gradient(135deg,#f0f5fc,#e6eef9);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--border);
 }
-.cal-question{
-  font-family:'Dancing Script',cursive;
-  font-size:clamp(1.6rem,4vw,2.6rem);
-  color:var(--blue-mid);line-height:1.4;margin-bottom:10px;
+.cal-question {
+  font-family: var(--f-script);
+  font-size: clamp(1.7rem, 4.5vw, 2.5rem);
+  color: var(--blue-mid);
+  line-height: 1.4;
+  margin-bottom: 22px;
 }
-.cal-sub{font-size:.88rem;color:var(--text-mid);margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.7;}
 .cta-btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
-.btn-primary{
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  background:var(--blue-mid);color:#fff;
-  border:none;border-radius:8px;padding:14px 28px;cursor:pointer;
-  transition:background .2s,transform .15s;text-decoration:none;display:inline-block;
+.survey-eyebrow {
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--blue-mid);
+  margin-bottom: 12px;
+}
+.survey-body {
+  font-family: var(--f-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-mid);
+  line-height: 1.78;
+  max-width: 540px;
+  margin: 0 auto 28px;
+}
+.survey-micro {
+  font-family: var(--f-body);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-top: 14px;
+  letter-spacing: .03em;
+}
+.btn-survey {
+  display: inline-block;
+  font-family: var(--f-ui);
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: var(--blue-mid);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-md);
+  padding: 16px 36px;
+  text-decoration: none;
+  transition: background .2s, transform .15s, box-shadow .2s;
+  box-shadow: 0 4px 16px rgba(29,78,137,.28);
+}
+.btn-survey:hover {
+  background: #174080;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(29,78,137,.38);
+}
+.btn-primary {
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  background: var(--blue-mid);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-md);
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+  text-decoration: none;
+  display: inline-block;
 }
 .btn-primary:hover{background:#174080;transform:translateY(-2px);}
-.btn-outline{
-  font-family:Helvetica,Arial,sans-serif;
-  font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  background:#fff;color:var(--blue-mid);
-  border:2px solid var(--blue-mid);border-radius:8px;padding:12px 28px;cursor:pointer;
-  transition:background .2s,color .2s,transform .15s;text-decoration:none;display:inline-block;
+.btn-outline {
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  background: #fff;
+  color: var(--blue-mid);
+  border: 2px solid var(--blue-mid);
+  border-radius: var(--r-md);
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: background .2s, color .2s, transform .15s;
+  text-decoration: none;
+  display: inline-block;
 }
 .btn-outline:hover{background:var(--blue-mid);color:#fff;transform:translateY(-2px);}
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════════
    APPENDIX
-═══════════════════════════════════════ */
-.appendix-list{display:flex;flex-direction:column;gap:11px;margin-top:18px;}
-.app-item{display:flex;align-items:center;gap:18px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 20px;text-decoration:none;color:var(--text);transition:background .2s,box-shadow .2s;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+════════════════════════════════════ */
+.appendix-list{display:flex;flex-direction:column;gap:10px;margin-top:18px;}
+.app-item{display:flex;align-items:center;gap:18px;background:#fff;border:1px solid var(--border);border-radius:var(--r-md);padding:16px 20px;text-decoration:none;color:var(--text);transition:background .2s,box-shadow .2s;box-shadow:0 1px 4px rgba(0,0,0,.04);}
 .app-item:hover{background:var(--off-white);box-shadow:0 4px 14px rgba(0,0,0,.08);}
-.app-num{font-family:Helvetica,Arial,sans-serif;font-size:1.4rem;font-weight:700;color:var(--blue-mid);min-width:30px;}
-.app-title{font-family:Helvetica,Arial,sans-serif;font-weight:600;color:var(--blue-deep);margin-bottom:3px;}
-.app-desc{font-size:.78rem;color:var(--text-muted);}
+.app-num {
+  font-family: var(--f-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--blue-mid);
+  min-width: 30px;
+}
+.app-title {
+  font-family: var(--f-display);
+  font-size: .92rem;
+  font-weight: 700;
+  color: var(--blue-deep);
+  margin-bottom: 3px;
+}
+.app-desc {
+  font-family: var(--f-body);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--text-muted);
+}
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════════
    QUOTES
-═══════════════════════════════════════ */
+════════════════════════════════════ */
 .quotes-grid{display:flex;flex-direction:column;gap:22px;margin-top:8px;}
-.quote-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:28px 26px;box-shadow:0 2px 8px rgba(0,0,0,.05);}
-.quote-card .q-mark{font-family:'Dancing Script',cursive;font-size:4rem;color:var(--accent);line-height:.7;margin-bottom:10px;display:block;}
-.quote-card .q-text{font-size:.95rem;font-style:italic;color:var(--text-mid);line-height:1.8;margin-bottom:14px;}
-.quote-card .q-author{font-family:Helvetica,Arial,sans-serif;font-size:.78rem;font-weight:700;color:var(--blue-mid);letter-spacing:.06em;}
+.quote-card{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);padding:30px 28px;box-shadow:0 2px 10px rgba(0,0,0,.05);}
+.quote-card .q-mark {
+  font-family: var(--f-script);
+  font-size: 4.5rem;
+  color: var(--accent);
+  line-height: .65;
+  margin-bottom: 12px;
+  display: block;
+}
+.quote-card .q-text {
+  font-family: var(--f-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-mid);
+  line-height: 1.82;
+  margin-bottom: 16px;
+}
+.quote-card .q-author {
+  font-family: var(--f-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--blue-mid);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════════
    FOOTER
-═══════════════════════════════════════ */
-footer{background:var(--blue-deep);padding:44px 24px;text-align:center;font-size:.8rem;color:rgba(255,255,255,.4);}
-footer strong{color:var(--accent-lt);}
+════════════════════════════════════ */
+footer{background:var(--blue-deep);padding:48px 24px;text-align:center;}
+footer p{
+  font-family: var(--f-body);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: rgba(255,255,255,.42);
+}
+footer strong{
+  font-family: var(--f-display);
+  font-weight: 700;
+  color: rgba(255,255,255,.88);
+}
+footer a{color:rgba(255,255,255,.65);text-decoration:none;transition:color .2s;}
+footer a:hover{color:#fff;}
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════════
    ANIMATIONS
-═══════════════════════════════════════ */
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;}
+════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
 .reveal.in-view{opacity:1;transform:none;}
+
+/* ════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════ */
+@media(max-width:768px){
+  section{padding:var(--sp-16) var(--sp-5);}
+  .sec-heading{margin-bottom:20px;}
+  .hero-venues{gap:8px;}
+  .hero-film-pill{max-width:100%;}
+  .sp-filter-bar{gap:6px;}
+  .speaker-card{width:clamp(220px,80vw,280px);}
+  .role-legend{gap:10px;}
+}
+@media(max-width:480px){
+  .hero-event-name{letter-spacing:-.03em;}
+  .hero-overcoming{font-size:1.15rem;}
+  .sp-filter-bar .day-tab{font-size:.65rem;padding:7px 14px;}
+  .cta-btns{flex-direction:column;align-items:center;}
+}
 </style>
 </head>
 <body>
 
-<!-- ──────── NAV ──────── -->
+<!-- NAV -->
 <nav>
   <div class="nav-logo">ASE 2026</div>
   <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -462,33 +982,61 @@ footer strong{color:var(--accent-lt);}
   <a href="#chetna">🤝 About Chetna</a>
   <a href="#outline">📅 Event Outline</a>
   <a href="#emancipation">🏛️ Emancipation Center</a>
-  <a href="#panelists">🎤 Moderators & Panelists</a>
+  <a href="#panelists">🎤 Moderators &amp; Panelists</a>
   <a href="#volunteers">💛 Volunteers</a>
   <a href="#after">🔭 After the Symposium</a>
   <a href="#appendix">📎 Appendix</a>
-  <a href="#quotes">✨ Quotes & Poems</a>
+  <a href="#quotes">✨ Quotes &amp; Poems</a>
 </div>
 
-<!-- ──────── HERO ──────── -->
+<!-- HERO -->
 <section id="hero">
   <canvas class="wave-canvas" id="waveCanvas"></canvas>
   <div class="hero-content">
     <div class="hero-badge">Vancouver, BC · March 15–16, 2026</div>
     <h1 class="hero-event-name">ASE <span>2026</span></h1>
-    <p class="hero-title">Dr. Ambedkar Symposium on Emancipation (ASE 2026):<br>Overcoming Caste Barriers for Social and Economic Equality</p>
-    <div class="hero-meta">
-      <div class="hero-meta-pill"><span class="dot"></span>Day 1 · March 15 · SFU Harbour Centre, Vancouver</div>
-      <div class="hero-meta-pill"><span class="dot"></span>Day 2 · March 16 · UBC Robson Square, Vancouver</div>
+    <p class="hero-ase-full">Dr. Ambedkar Symposium on Emancipation</p>
+    <p class="hero-overcoming">Overcoming Caste Barriers for Social and Economic Equality</p>
+
+    <div class="hero-venues">
+      <div class="hero-venue-row">
+        <span class="hero-venue-date">March 15</span>
+        <span class="hero-venue-text">SFU Harbour Center, Room 2270, 515 Hastings Street, Vancouver</span>
+      </div>
+      <div class="hero-venue-row">
+        <span class="hero-venue-date">March 16</span>
+        <span class="hero-venue-text">University of British Columbia, The Robson Centre, Vancouver</span>
+      </div>
     </div>
+
+    <div class="hero-film-pill">
+      <div>
+        <div class="film-label">March 16 · 7:00 PM · Film Screening</div>
+        <div class="film-title">ORIGIN — Followed by Discussion</div>
+        <div class="film-detail">The Cinematheque Theatre, 1131 Howe Street, Vancouver</div>
+        <a href="#" class="film-ticket-btn" target="_blank">🎟 Click here to book tickets ↗</a>
+      </div>
+    </div>
+
     <div class="sponsors-hero">
       <div class="sponsors-label">Proudly Supported By</div>
       <div class="sponsors-row">
-        <div class="sponsor-tag"><span class="s-dot"></span>SASI</div>
-        <div class="sponsor-tag"><span class="s-dot"></span>UFV</div>
-        <div class="sponsor-tag"><span class="s-dot"></span>SFU</div>
-        <div class="sponsor-tag"><span class="s-dot"></span>UBC</div>
-        <div class="sponsor-tag"><span class="s-dot"></span>KPU</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>UBC Dept. of History</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>UBC Himalaya Program</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>UBC Cinema Thinks The World</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>University of Fraser Valley</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>South Asian Studies Institute</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>SSHRC · CRSH</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>SFU Faculty of Arts</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>SFU Institute for the Humanities</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>SFU David Lam Centre</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>Centre for India &amp; South Asia Research</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>HomeKey Mortgages Inc.</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>Hari Sharma Foundation</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>Government of Canada</div>
+        <div class="sponsor-tag"><span class="s-dot"></span>Province of British Columbia</div>
       </div>
+      <p style="font-size:.7rem;color:rgba(255,255,255,.45);margin-top:14px;">Individual Sponsors: Parm &amp; Satwinder Bains</p>
     </div>
   </div>
   <div class="hero-wave">
@@ -500,163 +1048,76 @@ footer strong{color:var(--accent-lt);}
   </div>
 </section>
 
-<!-- ──────── ABOUT SYMPOSIUM ──────── -->
+<!-- ABOUT SYMPOSIUM -->
 <section id="about" class="bg-alt">
   <div class="section-inner">
     <div class="sec-label reveal">About the Symposium</div>
-    <h2 class="sec-heading reveal">A Global Dialogue for<br>Emancipation & Equality</h2>
+    <h2 class="sec-heading reveal">A Global Dialogue for<br>Emancipation &amp; Equality</h2>
     <div class="sec-body reveal">
       <p>The symposium is a two-day international community–university symposium in Vancouver on March 15–16, 2026 that will allow for collaborative exchange and planning that will direct our ongoing partnership for the coming three years.</p>
       <p>The Dr. Ambedkar Symposium on Emancipation (ASE 2026) will bring together scholars, students, activists, journalists, filmmakers, and community leaders from countries including Australia, India, Nepal, the UK, the USA, and Canada to address the oppression faced by people of Dalit background — those individuals most marginalized within the caste system (the term "Dalit" literally means "broken").</p>
       <div class="quote-pull">
-        "Grounded in the human rights and justice legacy of reformer and constitutionalist Dr. B.R. Ambedkar (1891–1956), the Symposium will create an inclusive space for activists, scholars, members of caste-oppressed communities, and allies of diverse backgrounds to share lived experiences and research insights."
+        Grounded in the human rights and justice legacy of reformer and constitutionalist Dr. B.R. Ambedkar (1891–1956), the Symposium will create an inclusive space for activists, scholars, members of caste-oppressed communities, and allies of diverse backgrounds to share lived experiences and research insights.
       </div>
-      <p>Interactive engagement will be central to the event, which will feature keynote addresses; the screening of the film <em>"Origin"</em> (2023), which explores the relationships among racism, caste discrimination, and anti-Semitism; a locally-developed exhibition; and workshops and panels on social, political, and economic emancipation.</p>
+      <p>Interactive engagement will be central to the event, which will feature keynote addresses; the screening of the film <em>Origin</em> (2023), which explores the relationships among racism, caste discrimination, and anti-Semitism; a locally-developed exhibition; and workshops and panels on social, political, and economic emancipation.</p>
       <p>Concrete outcomes will include a volunteer-written report on event content and findings, and a collaboratively developed action plan that outlines pathways for continued advocacy, research, and educational initiatives.</p>
       <p>Chetna Association of Canada and its partners have built a sustained partnership dedicated to advancing equity, inclusion, and community-engaged research. Building on the achievements of this partnership, our next phase focuses on deepening anti-caste scholarship, expanding community outreach, and enhancing knowledge mobilization across academic and public spheres.</p>
     </div>
   </div>
 </section>
 
-<!-- ──────── ABOUT CHETNA ──────── -->
+<!-- ABOUT CHETNA -->
 <section id="chetna">
   <div class="section-inner">
     <div class="sec-label reveal">Organizer</div>
     <h2 class="sec-heading reveal">Chetna Association of Canada</h2>
-
     <div class="chetna-top reveal">
-      <div>
-        <div class="chetna-logo">C</div>
-      </div>
+      <div><div class="chetna-logo">C</div></div>
       <div class="sec-body">
         <p>Founded in 1999 in British Columbia, the Chetna Association of Canada (Chetna in short) is the organizing host of the symposium, and is a non-profit organization dedicated to building equality, justice, and inclusion by addressing caste-based discrimination and other systemic inequities.</p>
-        <p>The word <em>"Chetna,"</em> meaning <strong>"awareness,"</strong> reflects the organization's mission to awaken social consciousness, challenge casteism, and empower communities toward systemic change.</p>
+        <p>The word <em>Chetna,</em> meaning <strong>awareness,</strong> reflects the organization's mission to awaken social consciousness, challenge casteism, and empower communities toward systemic change.</p>
         <p>Chetna primarily serves South Asian diaspora communities in Canada, focusing on Dalit and caste-marginalized groups through education, advocacy, and community leadership. Rooted in Dr. B.R. Ambedkar's human rights philosophy, Chetna partners with UBC, SFU, UFV, KPU, and other institutions to bridge grassroots activism with academic research and policy development.</p>
-      </div>
-    </div>
-
-    <div class="chetna-group-img reveal"><span>Community Group Photo</span></div>
-
-    <!-- TIMELINE -->
-    <div class="timeline-section reveal">
-      <div class="timeline-title">Key Milestones</div>
-      <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:22px;">Click any milestone to read more.</p>
-      <div class="tl-outer">
-        <div class="tl-inner" id="tlInner">
-          <div class="tl-line"></div>
-
-          <div class="tl-node" data-year="1999" data-info="Founded in Surrey, BC. Chetna was established as a non-profit dedicated to anti-caste advocacy, equality, and the empowerment of Dalit and caste-marginalized communities in Canada.">
-            <div class="tl-popup"><strong>1999</strong>Founded in Surrey, BC as a non-profit dedicated to anti-caste advocacy and community empowerment.</div>
-            <div class="tl-dot"></div><div class="tl-year">1999</div>
-          </div>
-
-          <div class="tl-node" data-year="2003a" data-info="Hosted the landmark International Dalit Conference in Vancouver — one of the first of its kind in Canada.">
-            <div class="tl-popup"><strong>2003</strong>Hosted the International Dalit Conference in Vancouver — one of the first of its kind in Canada.</div>
-            <div class="tl-dot"></div><div class="tl-year">2003</div>
-          </div>
-
-          <div class="tl-node" data-year="2003b" data-info="Began annual educational, cultural, and human rights events that continue to this day — building awareness of caste discrimination across British Columbia.">
-            <div class="tl-popup"><strong>2003–Present</strong>Annual educational, cultural, and human rights events building awareness of caste discrimination across BC.</div>
-            <div class="tl-dot"></div><div class="tl-year">2003–Now</div>
-          </div>
-
-          <div class="tl-node" data-year="2016" data-info="Launched the annual Dr. Ambedkar Memorial Lecture series, running through 2020, fostering academic and public dialogue on Ambedkarite thought and Dalit emancipation.">
-            <div class="tl-popup"><strong>2016–2020</strong>Launched the annual Dr. Ambedkar Memorial Lecture series fostering academic and public dialogue.</div>
-            <div class="tl-dot"></div><div class="tl-year">2016–20</div>
-          </div>
-
-          <div class="tl-node" data-year="2020" data-info="Became a partner on UBC's Caste in Canada Project (Phase 1: 2020–2023; Phase 2: 2024–2026), which led in Phase 2 to the creation of a post-doctoral research fellowship in Dalit Studies in UBC's Department of History.">
-            <div class="tl-popup"><strong>2020–Present</strong>Partner on UBC's Caste in Canada Project. Phase 2 created a post-doctoral fellowship in Dalit Studies at UBC.</div>
-            <div class="tl-dot"></div><div class="tl-year">2020+</div>
-          </div>
-
-          <div class="tl-node" data-year="2023" data-info="In collaboration with AICS Canada, held the Emancipation Symposium at UBC, SFU, UFV, and University of Victoria — producing a landmark report on caste equity in Canada.">
-            <div class="tl-popup"><strong>2023</strong>Emancipation Symposium at UBC, SFU, UFV & UVic — producing a landmark report on caste equity in Canada.</div>
-            <div class="tl-dot"></div><div class="tl-year">2023</div>
-          </div>
-
-          <div class="tl-node" data-year="2024" data-info="Partnering on 'The Elimination of Caste' project (PI: Dr. Anne Murphy) and organizing the Dr. Ambedkar Symposium on Emancipation (ASE 2026) in Vancouver.">
-            <div class="tl-popup"><strong>2024–2026</strong>Partnering on "The Elimination of Caste" project and organizing ASE 2026 in Vancouver.</div>
-            <div class="tl-dot"></div><div class="tl-year">2024–26</div>
-          </div>
-
-          <div class="tl-node" data-year="2025" data-info="Co-organized the Global Conference for a Caste-Free World in Toronto — a landmark international gathering of scholars, activists, and policymakers.">
-            <div class="tl-popup"><strong>2025</strong>Co-organized the Global Conference for a Caste-Free World in Toronto.</div>
-            <div class="tl-dot"></div><div class="tl-year">2025</div>
-          </div>
-
-        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ──────── EVENT OUTLINE ──────── -->
+<!-- EVENT OUTLINE -->
 <section id="outline" class="bg-alt">
   <div class="section-inner">
     <div class="sec-label reveal">Schedule</div>
     <h2 class="sec-heading reveal">Event Outline</h2>
     <div class="accordion reveal">
+      <div style="margin-bottom:6px;"><div class="day-badge">Day 1 — Saturday, March 15 · SFU Harbour Centre, Room 2270</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">8:00 AM</span><span class="acc-title">Registration &amp; Welcome Coffee</span><span class="acc-icon">+</span></div><div class="acc-body">Doors open for registration, welcome refreshments, and networking. Collect your event materials and connect with fellow participants before the opening ceremony begins.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">9:00 AM</span><span class="acc-title">Opening Ceremony &amp; Welcome Remarks</span><span class="acc-icon">+</span></div><div class="acc-body">Official opening of ASE 2026 with welcome remarks from Chetna Association leadership, university partners, and Indigenous Knowledge Keeper. Land acknowledgement and cultural opening.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">9:30 AM</span><span class="acc-title">Morning Sessions &amp; Keynote Presentations</span><span class="acc-icon">+</span></div><div class="acc-body">Keynote presentations exploring Dr. B.R. Ambedkar's enduring vision for social and economic emancipation and its relevance to contemporary struggles for equity globally.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">10:45 AM</span><span class="acc-title">Panel: Caste in the Canadian Diaspora</span><span class="acc-icon">+</span></div><div class="acc-body">A moderated panel examining lived experiences of caste discrimination within South Asian diaspora communities in Canada. Panelists share personal narratives alongside research findings and policy implications.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">12:15 PM</span><span class="acc-title">Caste in Canada Project Presentation</span><span class="acc-icon">+</span></div><div class="acc-body">Research presentation on the Caste in Canada Project — a collaborative initiative between UBC and Chetna Association documenting caste-based discrimination in Canadian institutions.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">1:00 PM</span><span class="acc-title">Lunch Break &amp; Networking</span><span class="acc-icon">+</span></div><div class="acc-body">Catered lunch with open networking for participants, scholars, and community leaders.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">2:00 PM</span><span class="acc-title">Afternoon Panels &amp; Workshops</span><span class="acc-icon">+</span></div><div class="acc-body">Afternoon sessions with panels on caste, identity, justice, and community organizing. Facilitated discussions and interactive workshops.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">4:00 PM</span><span class="acc-title">Roundtable: Community, Policy &amp; Action</span><span class="acc-icon">+</span></div><div class="acc-body">Open dialogue and roundtable sessions on policy change, community organizing, and paths forward.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">5:00 PM</span><span class="acc-title">Evening Session &amp; Closing Remarks – Day 1</span><span class="acc-icon">+</span></div><div class="acc-body">Closing reflections for Day 1, evening networking, and preview of Day 2 programming.</div></div>
 
-      <div style="margin-bottom:6px;"><div class="day-badge">Day 1 — Saturday, March 15 · SFU Harbour Centre</div></div>
+      <div style="margin:22px 0 6px;"><div class="day-badge">Day 2 — Sunday, March 16 · UBC Robson Centre</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">8:00 AM</span><span class="acc-title">Registration &amp; Opening – Day 2</span><span class="acc-icon">+</span></div><div class="acc-body">Morning registration and opening remarks at UBC Robson Centre, Vancouver.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">9:30 AM</span><span class="acc-title">Keynote: Global Anti-Caste Movements</span><span class="acc-icon">+</span></div><div class="acc-body">International perspectives from scholars and activists from Australia, India, Nepal, the UK, and the USA on anti-caste organizing, legislative victories, and ongoing challenges.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">10:30 AM</span><span class="acc-title">Academic &amp; Research Panels</span><span class="acc-icon">+</span></div><div class="acc-body">Research presentations and panel discussions on caste in education, labour, and society.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">11:15 AM</span><span class="acc-title">Panel: Economic Emancipation</span><span class="acc-icon">+</span></div><div class="acc-body">Interactive session focused on developing actionable strategies for economic inclusion and equity for caste-marginalized communities.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">12:30 PM</span><span class="acc-title">Lunch &amp; Consortium Working Session</span><span class="acc-icon">+</span></div><div class="acc-body">Working lunch for the Consortium for the Annihilation of Caste Discrimination in Canada and Beyond to advance collaborative planning for the next three-year phase of the partnership.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">1:30 PM</span><span class="acc-title">Panel: Community Voices &amp; Leadership</span><span class="acc-icon">+</span></div><div class="acc-body">Community leaders and activists share perspectives on local organizing, advocacy, and the path toward caste equity in Canada.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">2:00 PM</span><span class="acc-title">Plenary: Dr. Ambedkar Emancipation Center — Vision &amp; Roadmap</span><span class="acc-icon">+</span></div><div class="acc-body">A plenary session presenting the vision, programs, and launch plan for the proposed Dr. Ambedkar Emancipation Center in Canada. Open floor for community input, questions, and collaborative planning.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">3:30 PM</span><span class="acc-title">Collaborative Action Planning</span><span class="acc-icon">+</span></div><div class="acc-body">Facilitated working groups to develop the collaborative action plan for continued advocacy, research, and educational initiatives.</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">5:00 PM</span><span class="acc-title">Closing Ceremony &amp; Acknowledgements</span><span class="acc-icon">+</span></div><div class="acc-body">Closing reflections, acknowledgements, and formal closing of ASE 2026 Day 2.</div></div>
 
-      <div class="acc-item">
-        <div class="acc-header"><span class="acc-time">9:00 AM</span><span class="acc-title">Registration & Welcome Coffee</span><span class="acc-icon">+</span></div>
-        <div class="acc-body">Doors open for registration, welcome refreshments, and networking. Collect your event materials and connect with fellow participants before the opening ceremony begins.</div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-header"><span class="acc-time">10:00 AM</span><span class="acc-title">Opening Ceremony & Welcome Remarks</span><span class="acc-icon">+</span></div>
-        <div class="acc-body">Official opening of ASE 2026 with welcome remarks from Chetna Association leadership, university partners, and Indigenous Knowledge Keeper. Land acknowledgement and cultural opening.</div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-header"><span class="acc-time">10:30 AM</span><span class="acc-title">Keynote Address: Ambedkar's Legacy in the 21st Century</span><span class="acc-icon">+</span></div>
-        <div class="acc-body">An inspiring keynote exploring Dr. B.R. Ambedkar's enduring vision for social and economic emancipation and its relevance to contemporary struggles for equity globally.</div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-header"><span class="acc-time">11:45 AM</span><span class="acc-title">Panel 1: Caste in the Canadian Diaspora</span><span class="acc-icon">+</span></div>
-        <div class="acc-body">A moderated panel examining lived experiences of caste discrimination within South Asian diaspora communities in Canada. Panelists share personal narratives alongside research findings and policy implications.</div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-header"><span class="acc-time">1:00 PM</span><span class="acc-title">Lunch Break & Exhibition Opening</span><span class="acc-icon">+</span></div>
-        <div class="acc-body">Catered lunch with the formal opening of the locally-developed exhibition on Dalit art, history, and human rights. Explore the gallery and engage with exhibitors.</div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-header"><span class="acc-time">2:30 PM</span><span class="acc-title">Film Screening: "Origin" (2023)</span><span class="acc-icon">+</span></div>
-        <div class="acc-body">Screening of Ava DuVernay's film <em>"Origin"</em> (2023), which explores the interconnected relationships between racism, caste discrimination, and anti-Semitism. A moderated discussion will follow.</div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-header"><span class="acc-time">5:00 PM</span><span class="acc-title">Post-Screening Discussion & Evening Reception</span><span class="acc-icon">+</span></div>
-        <div class="acc-body">Open dialogue on the film's themes and their relevance to anti-caste advocacy. Evening reception with light refreshments and community networking.</div>
-      </div>
-
-      <div style="margin:22px 0 6px;"><div class="day-badge">Day 2 — Sunday, March 16 · UBC Robson Square</div></div>
-
-      <div class="acc-item">
-        <div class="acc-header"><span class="acc-time">9:30 AM</span><span class="acc-title">Workshop: Economic Emancipation Strategies</span><span class="acc-icon">+</span></div>
-        <div class="acc-body">Interactive workshop focused on developing actionable strategies for economic inclusion and equity for caste-marginalized communities. Facilitated group work to generate policy and community action recommendations.</div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-header"><span class="acc-time">11:00 AM</span><span class="acc-title">Panel 2: Global Anti-Caste Movements</span><span class="acc-icon">+</span></div>
-        <div class="acc-body">International perspectives from scholars and activists from Australia, India, Nepal, the UK, and the USA on anti-caste organizing, legislative victories, and ongoing challenges in various national contexts.</div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-header"><span class="acc-time">12:30 PM</span><span class="acc-title">Lunch & Consortium Working Session</span><span class="acc-icon">+</span></div>
-        <div class="acc-body">Working lunch for the Consortium for the Annihilation of Caste Discrimination in Canada and Beyond to advance collaborative planning for the next three-year phase of the partnership.</div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-header"><span class="acc-time">2:00 PM</span><span class="acc-title">Plenary: Dr. Ambedkar Emancipation Center — Vision & Roadmap</span><span class="acc-icon">+</span></div>
-        <div class="acc-body">A plenary session presenting the vision, programs, and launch plan for the proposed Dr. Ambedkar Emancipation Center in Canada. Open floor for community input, questions, and collaborative planning.</div>
-      </div>
-      <div class="acc-item">
-        <div class="acc-header"><span class="acc-time">4:00 PM</span><span class="acc-title">Closing Ceremony & Action Plan Presentation</span><span class="acc-icon">+</span></div>
-        <div class="acc-body">Presentation of the collaboratively developed action plan outlining pathways for continued advocacy, research, and educational initiatives. Closing reflections, acknowledgements, and formal closing of ASE 2026.</div>
-      </div>
+      <div style="margin:22px 0 6px;"><div class="day-badge">Evening — March 16 · The Cinematheque Theatre, 1131 Howe St</div></div>
+      <div class="acc-item"><div class="acc-header"><span class="acc-time">7:00 PM</span><span class="acc-title">Film Screening: ORIGIN — Followed by Discussion</span><span class="acc-icon">+</span></div><div class="acc-body">Screening of Ava DuVernay's film <em>Origin</em> (2023), exploring the relationships among racism, caste discrimination, and anti-Semitism. A moderated discussion follows the screening. For tickets, visit the event website.</div></div>
     </div>
     <p style="font-size:.75rem;color:var(--text-muted);margin-top:14px;">* Full schedule available at <a href="https://docs.google.com/document/d/1-mMspfE1doG7IfmUS8RGDsJyqRvjbI80/edit" target="_blank" style="color:var(--accent);">official event document ↗</a>. Times subject to change.</p>
   </div>
 </section>
 
-<!-- ──────── EMANCIPATION CENTER ──────── -->
+<!-- EMANCIPATION CENTER -->
 <section id="emancipation">
   <div class="section-inner">
     <div class="sec-label reveal">Vision</div>
@@ -666,66 +1127,16 @@ footer strong{color:var(--accent-lt);}
       <p class="sec-body" style="margin-top:12px;">Establishing an Ambedkar Emancipation Center in Canada would serve multiple meaningful purposes, especially in light of the growing interest and engagement with Dr. B.R. Ambedkar's legacy among the South Asian diaspora and human rights advocates in North America. Tap each card to explore why such a center would be significant.</p>
     </div>
   </div>
-
   <div class="flip-carousel-wrap" style="padding:0 24px;" id="emanWrap">
     <div class="flip-track" id="emanTrack">
-
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
-        <div class="flip-inner">
-          <div class="flip-front"><div class="f-emoji">🌍</div><div class="f-title">Globalizing Ambedkar's Legacy</div><div class="f-hint">Tap to explore →</div></div>
-          <div class="flip-back"><div class="b-title">Globalizing Ambedkar's Legacy</div><div class="b-text"><p>Dr. Ambedkar's fight against caste discrimination and his vision of a just society resonate globally in multicultural democracies like Canada.</p><ul><li><strong>Promotes Social Justice Values</strong> — connects to anti-racism, Indigenous rights, and gender justice</li><li><strong>Extends Dalit Discourse Internationally</strong> — provides a platform for global dialogue on caste-based oppression</li></ul></div></div>
-        </div>
-      </div>
-
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
-        <div class="flip-inner">
-          <div class="flip-front"><div class="f-emoji">📚</div><div class="f-title">Educational & Cultural Hub</div><div class="f-hint">Tap to explore →</div></div>
-          <div class="flip-back"><div class="b-title">Educational & Cultural Hub</div><div class="b-text"><ul><li><strong>Academic Engagement</strong> — events exploring caste, Buddhism, and emancipation</li><li><strong>Public Awareness</strong> — lectures, exhibitions, and workshops on caste, social reform, and Ambedkar's contributions to law, history, economics, and human rights</li><li>Library and archive of Ambedkar's writings</li></ul></div></div>
-        </div>
-      </div>
-
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
-        <div class="flip-inner">
-          <div class="flip-front"><div class="f-emoji">🤝</div><div class="f-title">Community Empowerment</div><div class="f-hint">Tap to explore →</div></div>
-          <div class="flip-back"><div class="b-title">Community Empowerment</div><div class="b-text"><ul><li><strong>Support for Marginalized Voices</strong> — a space for Dalit communities to organize, reflect, and advocate</li><li><strong>Cultural Identity</strong> — helps South Asians born outside the Indian subcontinent connect with their heritage through the lens of social justice</li><li>Youth leadership programs</li></ul></div></div>
-        </div>
-      </div>
-
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
-        <div class="flip-inner">
-          <div class="flip-front"><div class="f-emoji">🕊️</div><div class="f-title">Interfaith & Human Rights Dialogue</div><div class="f-hint">Tap to explore →</div></div>
-          <div class="flip-back"><div class="b-title">Interfaith & Human Rights Dialogue</div><div class="b-text"><ul><li><strong>Buddhist Philosophy</strong> — Ambedkar's embrace of Buddhism as a path to liberation offers a spiritual foundation for interfaith dialogue</li><li><strong>Human Rights Advocacy</strong> — collaboration with Indigenous, Black, and immigrant communities to address systemic discrimination in Canada</li></ul></div></div>
-        </div>
-      </div>
-
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
-        <div class="flip-inner">
-          <div class="flip-front"><div class="f-emoji">📖</div><div class="f-title">Educational & Academic Programs</div><div class="f-hint">Tap to explore →</div></div>
-          <div class="flip-back"><div class="b-title">What Programs?</div><div class="b-text"><ul><li>Lecture Series & Seminars on Ambedkar's philosophy, caste, and constitutionalism</li><li>Fellowships & Scholarships for Dalit studies researchers</li><li>Curriculum development with universities</li></ul></div></div>
-        </div>
-      </div>
-
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
-        <div class="flip-inner">
-          <div class="flip-front"><div class="f-emoji">🧠</div><div class="f-title">Research & Policy Advocacy</div><div class="f-hint">Tap to explore →</div></div>
-          <div class="flip-back"><div class="b-title">Research & Policy</div><div class="b-text"><ul><li>Evidence-based research on caste issues in collaboration with universities</li><li>Think Tank Initiatives on diaspora caste discrimination and labor rights</li><li>Policy Dialogues to influence anti-discrimination laws and multicultural inclusion</li><li>Publications: Journals, reports, and books</li></ul></div></div>
-        </div>
-      </div>
-
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
-        <div class="flip-inner">
-          <div class="flip-front"><div class="f-emoji">🛕</div><div class="f-title">Cultural & Spiritual Engagement</div><div class="f-hint">Tap to explore →</div></div>
-          <div class="flip-back"><div class="b-title">Cultural & Spiritual</div><div class="b-text"><ul><li>Buddhist Studies & Meditation — Navayana Buddhism as envisioned by Ambedkar</li><li>Art Exhibitions & Film Screenings of Dalit art, literature, and cinema</li><li>Ambedkar Jayanti, Conversion Day (Oct 14), Dalit History Month, Constitution Day</li></ul></div></div>
-        </div>
-      </div>
-
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
-        <div class="flip-inner">
-          <div class="flip-front"><div class="f-emoji">🌐</div><div class="f-title">International Collaboration</div><div class="f-hint">Tap to explore →</div></div>
-          <div class="flip-back"><div class="b-title">International Collaboration</div><div class="b-text"><ul><li>Global Conferences hosting international scholars, activists, and policymakers</li><li>Diaspora Networking across North America, Europe, and South Asia</li><li><strong>Proposed Location:</strong> Surrey or Vancouver, BC — home to a large South Asian diaspora</li></ul></div></div>
-        </div>
-      </div>
-
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="f-emoji">🌍</div><div class="f-title">Globalizing Ambedkar's Legacy</div><div class="f-hint">Tap to explore →</div></div><div class="flip-back"><div class="b-title">Globalizing Ambedkar's Legacy</div><div class="b-text"><p>Dr. Ambedkar's fight against caste discrimination and his vision of a just society resonate globally in multicultural democracies like Canada.</p><ul><li><strong>Promotes Social Justice Values</strong> — connects to anti-racism, Indigenous rights, and gender justice</li><li><strong>Extends Dalit Discourse Internationally</strong> — provides a platform for global dialogue on caste-based oppression</li></ul></div></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="f-emoji">📚</div><div class="f-title">Educational &amp; Cultural Hub</div><div class="f-hint">Tap to explore →</div></div><div class="flip-back"><div class="b-title">Educational &amp; Cultural Hub</div><div class="b-text"><ul><li><strong>Academic Engagement</strong> — events exploring caste, Buddhism, and emancipation</li><li><strong>Public Awareness</strong> — lectures, exhibitions, and workshops on caste, social reform, and Ambedkar's contributions</li><li>Library and archive of Ambedkar's writings</li></ul></div></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="f-emoji">🤝</div><div class="f-title">Community Empowerment</div><div class="f-hint">Tap to explore →</div></div><div class="flip-back"><div class="b-title">Community Empowerment</div><div class="b-text"><ul><li><strong>Support for Marginalized Voices</strong> — a space for Dalit communities to organize, reflect, and advocate</li><li><strong>Cultural Identity</strong> — helps South Asians connect with their heritage through social justice</li><li>Youth leadership programs</li></ul></div></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="f-emoji">🕊️</div><div class="f-title">Interfaith &amp; Human Rights Dialogue</div><div class="f-hint">Tap to explore →</div></div><div class="flip-back"><div class="b-title">Interfaith &amp; Human Rights Dialogue</div><div class="b-text"><ul><li><strong>Buddhist Philosophy</strong> — Ambedkar's embrace of Buddhism as a path to liberation</li><li><strong>Human Rights Advocacy</strong> — collaboration with Indigenous, Black, and immigrant communities to address systemic discrimination</li></ul></div></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="f-emoji">📖</div><div class="f-title">Academic Programs</div><div class="f-hint">Tap to explore →</div></div><div class="flip-back"><div class="b-title">What Programs?</div><div class="b-text"><ul><li>Lecture Series &amp; Seminars on Ambedkar's philosophy, caste, and constitutionalism</li><li>Fellowships &amp; Scholarships for Dalit studies researchers</li><li>Curriculum development with universities</li></ul></div></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="f-emoji">🧠</div><div class="f-title">Research &amp; Policy Advocacy</div><div class="f-hint">Tap to explore →</div></div><div class="flip-back"><div class="b-title">Research &amp; Policy</div><div class="b-text"><ul><li>Evidence-based research on caste issues in collaboration with universities</li><li>Think Tank Initiatives on diaspora caste discrimination and labor rights</li><li>Policy Dialogues to influence anti-discrimination laws</li><li>Publications: Journals, reports, and books</li></ul></div></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="f-emoji">🛕</div><div class="f-title">Cultural &amp; Spiritual Engagement</div><div class="f-hint">Tap to explore →</div></div><div class="flip-back"><div class="b-title">Cultural &amp; Spiritual</div><div class="b-text"><ul><li>Buddhist Studies &amp; Meditation — Navayana Buddhism as envisioned by Ambedkar</li><li>Art Exhibitions &amp; Film Screenings of Dalit art, literature, and cinema</li><li>Ambedkar Jayanti, Conversion Day (Oct 14), Dalit History Month</li></ul></div></div></div></div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div class="f-emoji">🌐</div><div class="f-title">International Collaboration</div><div class="f-hint">Tap to explore →</div></div><div class="flip-back"><div class="b-title">International Collaboration</div><div class="b-text"><ul><li>Global Conferences hosting international scholars, activists, and policymakers</li><li>Diaspora Networking across North America, Europe, and South Asia</li><li><strong>Proposed Location:</strong> Surrey or Vancouver, BC</li></ul></div></div></div></div>
     </div>
   </div>
   <div class="car-controls">
@@ -733,88 +1144,1028 @@ footer strong{color:var(--accent-lt);}
     <div class="car-dots" id="emanDots"></div>
     <button class="car-btn" id="emanNext">&#8594;</button>
   </div>
-
-  <!-- Launch Plan -->
   <div class="section-inner" style="margin-top:58px;">
-    <h3 style="font-family:Helvetica,Arial,sans-serif;font-size:1.5rem;font-weight:700;color:var(--blue-deep);margin-bottom:6px;">Launch Plan</h3>
+    <h3 style="font-family:var(--f-display);font-size:1.5rem;font-weight:700;color:var(--blue-deep);margin-bottom:6px;">Launch Plan</h3>
     <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:20px;">To be developed collaboratively after the symposium.</p>
     <div style="display:flex;flex-direction:column;gap:0;" class="reveal">
-      <div style="display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
-        <div style="width:34px;height:34px;border-radius:50%;background:var(--blue-mid);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:1rem;flex-shrink:0;">1</div>
-        <div><div style="font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:.95rem;color:var(--blue-deep);margin-bottom:3px;">Community Consultations & Feasibility Study</div><div style="font-size:.84rem;color:var(--text-mid);line-height:1.65;">Initiate broad community consultations to assess needs and evaluate feasibility for the Center's establishment.</div></div>
-      </div>
-      <div style="display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
-        <div style="width:34px;height:34px;border-radius:50%;background:var(--blue-mid);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:1rem;flex-shrink:0;">2</div>
-        <div><div style="font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:.95rem;color:var(--blue-deep);margin-bottom:3px;">Secure Infrastructure & Supports</div><div style="font-size:.84rem;color:var(--text-mid);line-height:1.65;">Identify and secure physical location, funding (Canadian Heritage grants, philanthropic foundations, community fundraising, and international Ambedkarite networks).</div></div>
-      </div>
-      <div style="display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--border);align-items:flex-start;">
-        <div style="width:34px;height:34px;border-radius:50%;background:var(--blue-mid);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:1rem;flex-shrink:0;">3</div>
-        <div><div style="font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:.95rem;color:var(--blue-deep);margin-bottom:3px;">Pilot Programs</div><div style="font-size:.84rem;color:var(--text-mid);line-height:1.65;">Launch initial educational programs, community dialogues, and research initiatives to demonstrate impact.</div></div>
-      </div>
-      <div style="display:flex;gap:18px;padding:18px 0;align-items:flex-start;">
-        <div style="width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:1rem;flex-shrink:0;">4</div>
-        <div><div style="font-family:Helvetica,Arial,sans-serif;font-weight:700;font-size:.95rem;color:var(--blue-deep);margin-bottom:3px;">Grand Opening</div><div style="font-size:.84rem;color:var(--text-mid);line-height:1.65;">Celebrate with an international symposium and cultural festival, bringing together the global Ambedkarite community.</div></div>
-      </div>
+      <div style="display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--border);align-items:flex-start;"><div style="width:34px;height:34px;border-radius:50%;background:var(--blue-mid);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:800;font-size:1rem;flex-shrink:0;">1</div><div><div style="font-family:var(--f-display);font-weight:700;font-size:.95rem;color:var(--blue-deep);margin-bottom:3px;">Community Consultations &amp; Feasibility Study</div><div style="font-size:.84rem;color:var(--text-mid);line-height:1.65;">Initiate broad community consultations to assess needs and evaluate feasibility for the Center's establishment.</div></div></div>
+      <div style="display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--border);align-items:flex-start;"><div style="width:34px;height:34px;border-radius:50%;background:var(--blue-mid);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:800;font-size:1rem;flex-shrink:0;">2</div><div><div style="font-family:var(--f-display);font-weight:700;font-size:.95rem;color:var(--blue-deep);margin-bottom:3px;">Secure Infrastructure &amp; Supports</div><div style="font-size:.84rem;color:var(--text-mid);line-height:1.65;">Identify and secure physical location, funding (Canadian Heritage grants, philanthropic foundations, community fundraising, and international Ambedkarite networks).</div></div></div>
+      <div style="display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--border);align-items:flex-start;"><div style="width:34px;height:34px;border-radius:50%;background:var(--blue-mid);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:800;font-size:1rem;flex-shrink:0;">3</div><div><div style="font-family:var(--f-display);font-weight:700;font-size:.95rem;color:var(--blue-deep);margin-bottom:3px;">Pilot Programs</div><div style="font-size:.84rem;color:var(--text-mid);line-height:1.65;">Launch initial educational programs, community dialogues, and research initiatives to demonstrate impact.</div></div></div>
+      <div style="display:flex;gap:18px;padding:18px 0;align-items:flex-start;"><div style="width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:800;font-size:1rem;flex-shrink:0;">4</div><div><div style="font-family:var(--f-display);font-weight:700;font-size:.95rem;color:var(--blue-deep);margin-bottom:3px;">Grand Opening</div><div style="font-size:.84rem;color:var(--text-mid);line-height:1.65;">Celebrate with an international symposium and cultural festival, bringing together the global Ambedkarite community.</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- ──────── PANELISTS ──────── -->
+<!-- PANELISTS -->
 <section id="panelists" class="bg-alt">
   <div class="section-inner">
     <div class="sec-label reveal">Speakers</div>
-    <h2 class="sec-heading reveal">Invited Moderators & Panelists</h2>
-    <p class="sec-body reveal" style="margin-bottom:24px;">Distinguished scholars, activists, and community leaders from across the globe. Tap each card to read their full profile. Full details at the <a href="https://docs.google.com/document/u/0/d/1I7MlRvYqIVigGLnyU8qBsuGCxOJJwmrsO_Ep3SE_vHA/edit" target="_blank" style="color:var(--blue-mid);text-decoration:underline;">official speaker document ↗</a></p>
+    <h2 class="sec-heading reveal">Invited Moderators &amp; Panelists</h2>
+    <p class="sec-body reveal" style="margin-bottom:20px;">Distinguished scholars, activists, and community leaders from across the globe. Tap each card to read their full profile. Full details at the <a href="https://docs.google.com/document/u/0/d/1I7MlRvYqIVigGLnyU8qBsuGCxOJJwmrsO_Ep3SE_vHA/edit" target="_blank" style="color:var(--blue-mid);text-decoration:underline;">official speaker document ↗</a></p>
 
-    <div class="day-tabs reveal" id="speakerTabs">
-      <button class="day-tab active" data-day="1">Day 1 — March 15</button>
-      <button class="day-tab" data-day="2">Day 2 — March 16</button>
+    <div class="role-legend reveal">
+      <div class="legend-item"><div class="legend-dot" style="background:#0d7a5f;"></div> Moderator</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#1d4e89;"></div> Panelist</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#7b3fa0;"></div> Moderator / Panelist</div>
+    </div>
+
+    <div class="sp-filter-bar reveal" id="speakerFilters">
+      <span class="sp-filter-label">Filter:</span>
+      <button class="day-tab active" data-day="all">All</button>
+      <button class="day-tab" data-day="March 15">March 15</button>
+      <button class="day-tab" data-day="March 16">March 16</button>
     </div>
 
     <div class="speakers-wrap">
       <div class="speakers-track" id="speakersTrack">
-        <!-- Day 1 speakers -->
-        <div class="speaker-card" data-day="1" onclick="this.classList.toggle('flipped')">
+<div class="speaker-card" data-days="March 16" onclick="this.classList.toggle('flipped')">
           <div class="sp-inner">
-            <div class="sp-front"><div class="sp-avatar">KA</div><div class="sp-info"><div class="sp-name">Dr. Keynote A</div><div class="sp-role">Keynote Speaker</div><div class="sp-org">University of British Columbia</div><div class="sp-flip-hint">Tap for full profile →</div></div></div>
-            <div class="sp-back"><div class="sp-back-name">Dr. Keynote A</div><div class="sp-back-role">Keynote Speaker · UBC</div><div class="sp-back-body">A leading scholar in South Asian studies and Dalit human rights, with over 20 years of research on caste discrimination in the diaspora. Author of multiple award-winning publications on Ambedkarite thought and its global relevance.</div></div>
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">HM</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Harjinder Mal</div>
+                <div class="sp-role-pro">Community Leader, Activist & Philanthropist</div>
+                <div class="sp-org">Chetna Association of Canada</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 1:30 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Harjinder Mal</div>
+              <div class="sp-back-org">Chetna Association of Canada</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
           </div>
         </div>
-        <div class="speaker-card" data-day="1" onclick="this.classList.toggle('flipped')">
+<div class="speaker-card" data-days="March 15 March 16" onclick="this.classList.toggle('flipped')">
           <div class="sp-inner">
-            <div class="sp-front"><div class="sp-avatar">JB</div><div class="sp-info"><div class="sp-name">Prof. J. Babu</div><div class="sp-role">Moderator</div><div class="sp-org">SFU, Dept. of Sociology</div><div class="sp-flip-hint">Tap for full profile →</div></div></div>
-            <div class="sp-back"><div class="sp-back-name">Prof. J. Babu</div><div class="sp-back-role">Moderator · SFU</div><div class="sp-back-body">Professor of Sociology at Simon Fraser University specializing in race, caste, and migration. Widely published on the intersection of South Asian identity and systemic inequality in Canadian society.</div></div>
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">CM</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mrs. Chanchal Mal</div>
+                <div class="sp-role-pro">Advisor, Chetna; Activist & Philanthropist</div>
+                <div class="sp-org">Chetna Association of Canada</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 5:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 1:30 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mrs. Chanchal Mal</div>
+              <div class="sp-back-org">Chetna Association of Canada</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
           </div>
         </div>
-        <div class="speaker-card" data-day="1" onclick="this.classList.toggle('flipped')">
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
           <div class="sp-inner">
-            <div class="sp-front"><div class="sp-avatar">RM</div><div class="sp-info"><div class="sp-name">R. Mahato</div><div class="sp-role">Activist & Journalist</div><div class="sp-org">Kathmandu, Nepal</div><div class="sp-flip-hint">Tap for full profile →</div></div></div>
-            <div class="sp-back"><div class="sp-back-name">R. Mahato</div><div class="sp-back-role">Activist & Journalist · Nepal</div><div class="sp-back-body">Prominent Dalit rights journalist and activist from Nepal with extensive experience documenting caste-based violence and leading community mobilization efforts across South Asia.</div></div>
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">MM</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Major Mal</div>
+                <div class="sp-role-pro">President</div>
+                <div class="sp-org">Ambedkar International Society of Calgary</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 9:30 AM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Major Mal</div>
+              <div class="sp-back-org">Ambedkar International Society of Calgary</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
           </div>
         </div>
-        <div class="speaker-card" data-day="1" onclick="this.classList.toggle('flipped')">
+<div class="speaker-card" data-days="March 15 March 16" onclick="this.classList.toggle('flipped')">
           <div class="sp-inner">
-            <div class="sp-front"><div class="sp-avatar">AC</div><div class="sp-info"><div class="sp-name">Dr. A. Chandran</div><div class="sp-role">Panelist</div><div class="sp-org">University of Fraser Valley</div><div class="sp-flip-hint">Tap for full profile →</div></div></div>
-            <div class="sp-back"><div class="sp-back-name">Dr. A. Chandran</div><div class="sp-back-role">Panelist · UFV</div><div class="sp-back-body">Research scholar at the University of Fraser Valley focusing on equity, inclusion, and anti-caste policy. Contributor to UFV's equity audit framework and faculty advisor for the South Asian student association.</div></div>
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">RA</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Rajratan Ambedkar</div>
+                <div class="sp-role-pro">Scholar & Leader</div>
+                <div class="sp-org">Independent</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 5:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 1:30 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Rajratan Ambedkar</div>
+              <div class="sp-back-org">Independent</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
           </div>
         </div>
-        <!-- Day 2 speakers -->
-        <div class="speaker-card" data-day="2" onclick="this.classList.toggle('flipped')" style="display:none;">
+<div class="speaker-card" data-days="March 16" onclick="this.classList.toggle('flipped')">
           <div class="sp-inner">
-            <div class="sp-front"><div class="sp-avatar">PK</div><div class="sp-info"><div class="sp-name">Dr. P. Kumar</div><div class="sp-role">Panelist</div><div class="sp-org">UK Human Rights Commission</div><div class="sp-flip-hint">Tap for full profile →</div></div></div>
-            <div class="sp-back"><div class="sp-back-name">Dr. P. Kumar</div><div class="sp-back-role">Panelist · UK</div><div class="sp-back-body">Human rights specialist with the UK Human Rights Commission with deep expertise in international anti-discrimination law and comparative studies of caste legislation across the Commonwealth.</div></div>
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">MM</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Moussa Magassa</div>
+                <div class="sp-role-pro">Associate Vice-President, Equity, Diversity & Inclusion</div>
+                <div class="sp-org">Mount Royal University</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 11:15 AM & 2:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 7:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Moussa Magassa</div>
+              <div class="sp-back-org">Mount Royal University</div>
+              <div class="sp-back-body">Dr. Moussa Magassa (he/him) is the Associate Vice-President of Equity, Diversity, and Inclusion (EDI) and an adjunct professor in education at Mount Royal University. His work is driven by lived experiences and the concepts of ethical responsibility, cultural understanding, and systemic change. He previously served as Principal Strategist EDI & Anti-Racism at the University of Victoria for 15 years and is also CEO of Magassa Intercultural Capacity Building.</div>
+              <a href="https://www.mtroyal.ca/nonprofit/InstituteforCommunityProsperity/_links/MoussaMagassaProfile.htm" target="_blank" class="sp-back-link">🔗 View Full Profile</a>
+            </div>
           </div>
         </div>
-        <div class="speaker-card" data-day="2" onclick="this.classList.toggle('flipped')" style="display:none;">
+<div class="speaker-card" data-days="March 16" onclick="this.classList.toggle('flipped')">
           <div class="sp-inner">
-            <div class="sp-front"><div class="sp-avatar">VS</div><div class="sp-info"><div class="sp-name">V. Subramanian</div><div class="sp-role">Filmmaker</div><div class="sp-org">Mumbai / Sydney</div><div class="sp-flip-hint">Tap for full profile →</div></div></div>
-            <div class="sp-back"><div class="sp-back-name">V. Subramanian</div><div class="sp-back-role">Filmmaker · Mumbai/Sydney</div><div class="sp-back-body">Award-winning documentary filmmaker whose work examines Dalit identity, caste narratives in Indian cinema, and the global reach of Ambedkarite social movements. Featured at international film festivals across three continents.</div></div>
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">TS</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Ms. Thenmozhi Soundararajan</div>
+                <div class="sp-role-pro">Founder & Executive Director</div>
+                <div class="sp-org">Equality Labs</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 9:30 AM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Ms. Thenmozhi Soundararajan</div>
+              <div class="sp-back-org">Equality Labs</div>
+              <div class="sp-back-body">Thenmozhi Soundararajan is a Dalit rights artist, technologist, and theorist. She is the Co-Founder and Executive Director of Equality Labs, a Dalit Civil Rights organization that uses community research, cultural and political organizing, popular education and digital security to build power to end caste apartheid, white supremacy, gender-based violence, and religious intolerance. Her book, The Trauma of Caste, is published by North Atlantic Books.</div>
+              
+            </div>
           </div>
         </div>
-        <div class="speaker-card" data-day="2" onclick="this.classList.toggle('flipped')" style="display:none;">
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
           <div class="sp-inner">
-            <div class="sp-front"><div class="sp-avatar">SA</div><div class="sp-info"><div class="sp-name">Dr. S. Ambure</div><div class="sp-role">Keynote</div><div class="sp-org">University of Melbourne</div><div class="sp-flip-hint">Tap for full profile →</div></div></div>
-            <div class="sp-back"><div class="sp-back-name">Dr. S. Ambure</div><div class="sp-back-role">Keynote · Melbourne</div><div class="sp-back-body">Professor of Dalit and Indigenous Studies at the University of Melbourne, whose comparative research on caste and race in settler-colonial contexts has been widely recognized across Australia and South Asia.</div></div>
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">DG</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. David Geary</div>
+                <div class="sp-role-pro">Associate Professor of Anthropology</div>
+                <div class="sp-org">University of British Columbia Okanagan</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 2:00 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. David Geary</div>
+              <div class="sp-back-org">University of British Columbia Okanagan</div>
+              <div class="sp-back-body">Dr. David Geary's research focuses on the reinvention of Buddhism in modern/contemporary India and how the politics of national heritage and tourism development intersect with wider transnational communities of religious practice in Asia. His monograph, The Rebirth of Bodh Gaya: Buddhism and the Making of a World Heritage Site (University of Washington Press, Global South Asia Series), grew from his PhD dissertation at UBC. His ongoing research foregrounds critical perspectives on social memory, urban design, and the political work of heritage within inter-communal religious spaces.</div>
+              <a href="https://ccgs.ok.ubc.ca/about/contact/david-geary/" target="_blank" class="sp-back-link">🔗 View Full Profile</a>
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">AL</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Ms. Anita Lal</div>
+                <div class="sp-role-pro">Co-Founder & Executive Director</div>
+                <div class="sp-org">Poetic Justice Foundation</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 9:00 AM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Ms. Anita Lal</div>
+              <div class="sp-back-org">Poetic Justice Foundation</div>
+              <div class="sp-back-body">Anita Lal is a fourth-generation settler, born and raised on the traditional territories of Lhtako Dene peoples, currently living on the unceded lands of the Coast Salish people. As Co-Founder and Executive Director of Poetic Justice Foundation, her approach is inclusive, intersectional, and critical, drawing attention to casteism, racism, and discrimination. She is Director of Operations and DEI at Moving Forward Family Services and serves on Boards for Arts BC, Women Transforming Cities, Human Research Ethics Board, South Asian Studies Institute at UFV, Vaapsi Recovery Home, Royal Academy of...</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">SS</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Sharnjit Kaur Sandhra</div>
+                <div class="sp-role-pro">Historian, Educator & Founder, Belonging Matters Consulting</div>
+                <div class="sp-org">UFV & UBC / Canadian Heritage</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 11:30 AM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Sharnjit Kaur Sandhra</div>
+              <div class="sp-back-org">UFV & UBC / Canadian Heritage</div>
+              <div class="sp-back-body">Dr. Sharnjit (Sharn) Kaur Sandhra is a historian, educator, storyteller, and founder of Belonging Matters Consulting. She became the first Punjabi and Sikh to complete her PhD from the Department of History at UBC in 2022, with a dissertation titled 'Museums as Spaces of Belonging: Racialized Power in the Margins.' With more than two decades of experience in museum curation, community heritage work, and mentoring youth, she has been featured in the Knowledge Network series 'B.C.: An Untold History,' is co-author of 'Challenging Racist BC: 150 Years and Counting,' and has been featured on local...</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">MK</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Manish Kumar</div>
+                <div class="sp-role-pro">Community Advocate, Organizer & Researcher</div>
+                <div class="sp-org">Chetna Association of Canada / UBC Okanagan</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 11:30 AM & 2:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Manish Kumar</div>
+              <div class="sp-back-org">Chetna Association of Canada / UBC Okanagan</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">MS</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Manmit Singh</div>
+                <div class="sp-role-pro">PhD Candidate, Gender, Race, Sexuality & Social Justice; Coordinator</div>
+                <div class="sp-org">University of British Columbia / Poetic Justice Foundation</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 11:30 AM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Manmit Singh</div>
+              <div class="sp-back-org">University of British Columbia / Poetic Justice Foundation</div>
+              <div class="sp-back-body">Mr. Manmit Singh is a PhD Candidate in the Gender, Race, Sexuality, and Social Justice program at the University of British Columbia. As a Sikh, their investments are in their Guru Sahib's directive to be a sant sipahi (saint-soldier or sage-warrior), and they have been organizing in anti-caste spaces as part of their commitment to spiritual and political liberation. They are a coordinator with Poetic Justice Foundation.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15 March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">KJ</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Ms. Kavya Jidudgu</div>
+                <div class="sp-role-pro">PhD Candidate, Faculty of Education</div>
+                <div class="sp-org">Queen's University</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 11:30 AM</span><span class="sess-role-badge badge-pan">Panelist</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 10:30 AM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Ms. Kavya Jidudgu</div>
+              <div class="sp-back-org">Queen's University</div>
+              <div class="sp-back-body">Kavya Jidugu is a PhD candidate in the Faculty of Education at Queen's University, Canada, studying education-migration policies and Dalit experiences in Canadian higher education. She is a doctoral fellow in Gender Studies at Queen's, working on a community-based mixed-methods dataset on caste in Canada. Her research interests include internationalization of higher education, community-based and Dalit feminist research methodologies, lived experiences, colour semiotics, and language ideologies. She holds an MSc in Sociology from IIT Gandhinagar and a BA/BEd from the Regional Institute of Educ...</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">AS</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Asma Sayed</div>
+                <div class="sp-role-pro">VP, Equity & Inclusive Communities; Canada Research Chair, South Asian Literary & Cultural Studies</div>
+                <div class="sp-org">Kwantlen Polytechnic University</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 7:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Asma Sayed</div>
+              <div class="sp-back-org">Kwantlen Polytechnic University</div>
+              <div class="sp-back-body">Dr. Asma Sayed is the Canada Research Chair in South Asian Literary and Cultural Studies in the Department of English at Kwantlen Polytechnic University and, as of November 2023, also Vice President, Equity and Inclusive Communities. Previously she served as Associate Vice President, Anti-racism, leading KPU's Office of Anti-Racism. She is an Elected Fellow of the Royal Society of Canada (2020), received the KPU JEDI Award (2023), and was former President of the Canadian Association for Postcolonial Studies. She has published 6 books.</div>
+              <a href="https://www.kpu.ca/arts/english/faculty/asma-sayed" target="_blank" class="sp-back-link">🔗 View Full Profile</a>
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">WB</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. William Brown</div>
+                <div class="sp-role-pro">Professor / Academic</div>
+                <div class="sp-org">University of British Columbia</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 7:00 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. William Brown</div>
+              <div class="sp-back-org">University of British Columbia</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">SB</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Satwinder Bains</div>
+                <div class="sp-role-pro">Associate Professor; Advisor, Chetna; Former Director, South Asian Studies Institute</div>
+                <div class="sp-org">University of the Fraser Valley</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 10:45 AM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Satwinder Bains</div>
+              <div class="sp-back-org">University of the Fraser Valley</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">UD</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Ujjal Dosanjh</div>
+                <div class="sp-role-pro">Lawyer, Author & Former Premier of BC; Former Federal Minister of Health</div>
+                <div class="sp-org">Independent</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 10:45 AM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Ujjal Dosanjh</div>
+              <div class="sp-back-org">Independent</div>
+              <div class="sp-back-body">Born in a village of India's rural Punjab in 1946, Ujjal migrated to Britain in 1964 and immigrated to Canada in 1968. A lifelong activist for social and economic justice, he campaigned for better legal rights for farm and domestic workers, practiced law and jumped into electoral politics becoming a BC MLA, Attorney General and Premier, and subsequently a member of parliament and Minister of Health for Canada. He wrote his autobiography Journey After Midnight (2016), which made BC's bestseller list. His debut novel, The Past Is Never Dead, published by Speaking Tiger, delves into the life of a...</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">BD</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Sen. Baltej S. Dhillon</div>
+                <div class="sp-role-pro">Senator; Retired RCMP Officer; Community Leader</div>
+                <div class="sp-org">Senate of Canada</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 10:15 AM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Sen. Baltej S. Dhillon</div>
+              <div class="sp-back-org">Senate of Canada</div>
+              <div class="sp-back-body">Senator Dhillon is a retired career police officer, a community leader, and a lifelong advocate for diversity and inclusion. Emigrating from Malaysia in 1983, Senator Dhillon made history in 1991 as the first Royal Canadian Mounted Police (RCMP) officer to wear a turban, advocating for the right to practice his faith while serving Canada. He went on to have a successful 30 year career with the RCMP as an accomplished major crime investigator, police interrogator, polygraph examiner, intelligence officer, and emergency planner.                                                                    ...</div>
+              <a href="https://sencanada.ca/en/senators/dhillon-baltej-s/" target="_blank" class="sp-back-link">🔗 View Full Profile</a>
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">OG</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Om Parkash VK Gehatraj</div>
+                <div class="sp-role-pro">Economist, Author & Dalit Rights Activist</div>
+                <div class="sp-org">Independent</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 10:45 AM</span><span class="sess-role-badge badge-pan">Panelist</span></div><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 4:00 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Om Parkash VK Gehatraj</div>
+              <div class="sp-back-org">Independent</div>
+              <div class="sp-back-body">Mr. Om Prakash VK Gahatraj is an economist, social justice advocate, and long-time campaigner for Dalit rights. Holding a Master of Arts in Economics and Bachelor in Law from Tribhuvan University and a Post-Graduate in Library and Information Sciences from the University of Madras, he has combined professional expertise with an unwavering commitment to equity and social change. He has contributed significantly to policy-making through roles in various government committees in Nepal, advocating for Dalit representation in education, employment, and politics.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">GB</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Gopal Bishwakarma</div>
+                <div class="sp-role-pro">Community Organizer & Dalit Rights Advocate</div>
+                <div class="sp-org">Independent</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 4:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Gopal Bishwakarma</div>
+              <div class="sp-back-org">Independent</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">SB</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mrs. Saraswati Bishwakarma</div>
+                <div class="sp-role-pro">Community Organizer & Dalit Rights Advocate</div>
+                <div class="sp-org">Independent</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 4:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mrs. Saraswati Bishwakarma</div>
+              <div class="sp-back-org">Independent</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">SG</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Shan Bahadur Gahatraj</div>
+                <div class="sp-role-pro">Community Leader</div>
+                <div class="sp-org">Independent</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 4:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Shan Bahadur Gahatraj</div>
+              <div class="sp-back-org">Independent</div>
+              <div class="sp-back-body">Mr. Om Prakash VK Gahatraj, is an economist, social justice advocate, and long-time campaigner for Dalit rights. Holding advanced degrees from Tribhuvan University with Master of Arts in Economics, Bachelor in Law and the University of Madras with Post-graduate in Library and Information Sciences, he has combined professional expertise with unwavering commitment to equity and social change. He has contributed significantly to policy-making through his roles in various government committees in Nepal, advocating for Dalit representation in education, employment, and politics.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15 March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">JR</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Jeremy Rinker</div>
+                <div class="sp-role-pro">Associate Professor, Department of Peace & Conflict Studies</div>
+                <div class="sp-org">University of North Carolina Greensboro</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 12:15 PM & 2:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 2:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Jeremy Rinker</div>
+              <div class="sp-back-org">University of North Carolina Greensboro</div>
+              <div class="sp-back-body">Jeremy A. Rinker is an Associate Professor at the University of North Carolina Greensboro's Department of Peace and Conflict Studies. His research explores complex intersections between peacebuilding, collective historical trauma, and systems of oppression, with a primary focus on South Asia and anti-caste activism. He graduated with a PhD from George Mason University's Institute for Conflict Analysis and Resolution (2009). He is the Executive Director of the Institute for Peace and Harmony and edits the Journal of Transdisciplinary Peace Praxis. His books include Identity, Rights, and Awarene...</div>
+              <a href="https://www.uncg.edu/employees/jeremy-rinker/" target="_blank" class="sp-back-link">🔗 View Full Profile</a>
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15 March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">GP</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Gaurav Pathania</div>
+                <div class="sp-role-pro">Assistant Professor of Sociology & Peacebuilding</div>
+                <div class="sp-org">Eastern Mennonite University</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 10:15 AM & 4:30 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 2:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 7:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Gaurav Pathania</div>
+              <div class="sp-back-org">Eastern Mennonite University</div>
+              <div class="sp-back-body">Dr. Gaurav Pathania is an Assistant Professor of Sociology and Peacebuilding in the Center for Justice and Peacebuilding (CJP) at Eastern Mennonite University (EMU) in Virginia. He is a sociologist of higher education and has taught 'Introduction to Sociology' and 'Global Social Movements' at Georgetown University's Department of Sociology. He is the author of The University as a Site of Resistance (OUP, 2018) and portrayed Dr. Ambedkar in Ava DuVernay's film ORIGIN. He is a National Poetry Award winner (India, 2016).</div>
+              <a href="https://gauravjpathania.com/" target="_blank" class="sp-back-link">🔗 View Full Profile</a>
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15 March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">RS</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Rajesh Sampath</div>
+                <div class="sp-role-pro">Associate Professor, Philosophy of Justice, Rights & Social Change</div>
+                <div class="sp-org">Brandeis University – Heller School</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 2:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 10:30 AM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Rajesh Sampath</div>
+              <div class="sp-back-org">Brandeis University – Heller School</div>
+              <div class="sp-back-body">Dr. Rajesh Sampath is Associate Professor of the Philosophy of Justice, Rights, and Social Change at Brandeis University's Heller School. His research includes philosophical theories of modernization and social-historical change as it affects modalities of social exclusion and inclusion, comparisons of Western philosophy with philosophical traditions in the Global South and East, and twentieth century Anglo-American and continental European moral and political philosophy. He is Lead Investigator of the Program on Social Exclusion at Brandeis and a DAAD Research Scientist Fellow, with over 70 a...</div>
+              <a href="https://scholarworks.brandeis.edu/esploro/profile/rajesh_sampath/overview" target="_blank" class="sp-back-link">🔗 View Full Profile</a>
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">SS</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Sasha Sabharwal</div>
+                <div class="sp-role-pro">Scholar</div>
+                <div class="sp-org">To Be Confirmed</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 12:15 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 2:45 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Sasha Sabharwal</div>
+              <div class="sp-back-org">To Be Confirmed</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15 March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">NR</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Nicole Ranganathan</div>
+                <div class="sp-role-pro">Assistant Professor, Middle East/South Asia Studies</div>
+                <div class="sp-org">University of California, Davis</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 12:15 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 10:30 AM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Nicole Ranganathan</div>
+              <div class="sp-back-org">University of California, Davis</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">SC</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Sumit Chauhan</div>
+                <div class="sp-role-pro">Community Organizer; Founder, News Beak</div>
+                <div class="sp-org">Independent</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 4:30 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Sumit Chauhan</div>
+              <div class="sp-back-org">Independent</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">MB</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Manoj Bhangu</div>
+                <div class="sp-role-pro">Change-Champion & Entrepreneur</div>
+                <div class="sp-org">Independent</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 11:15 AM & 1:30 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Manoj Bhangu</div>
+              <div class="sp-back-org">Independent</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">RM</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Ms. Ritu Mahil</div>
+                <div class="sp-role-pro">Labour Lawyer & Community Activist</div>
+                <div class="sp-org">Independent</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 11:15 AM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Ms. Ritu Mahil</div>
+              <div class="sp-back-org">Independent</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">JA</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Ms. Janet Andrews</div>
+                <div class="sp-role-pro">Secretary-Treasurer, New Westminster Labor District Council</div>
+                <div class="sp-org">New Westminster Labor District Council</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 11:15 AM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Ms. Janet Andrews</div>
+              <div class="sp-back-org">New Westminster &amp; District Labour Council</div>
+              <div class="sp-back-body">Janet Andrews is the full-time Secretary-Treasurer of the New Westminster &amp; District Labour Council, representing over 70,000 union members in fourteen municipalities in Metro Vancouver. Janet is proud to be a part of a grass roots, local organization with a strong tradition of workers speaking out on issues affecting them in their workplaces and in their communities. A member of the International Association of Machinists &amp; Aerospace Workers Union Local 764 since 1998, Janet has been active in the labour movement as a steward, in bargaining and on union committees. She is currently serving on the Executive Council of the BC Federation of Labour, as Vice Chair of the Board of Pacific Blue Cross, and as Secretary-Treasurer of the Union Protein Project Society.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">AS</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Aman Saini</div>
+                <div class="sp-role-pro">Community Organizer</div>
+                <div class="sp-org">Independent</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 5:00 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Aman Saini</div>
+              <div class="sp-back-org">Independent</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="TBD" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">SG</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Sujata Gaurkhede</div>
+                <div class="sp-role-pro">Academic / Researcher</div>
+                <div class="sp-org">To Be Confirmed</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">TBD</span><span class="sess-time">⏱ TBD</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Sujata Gaurkhede</div>
+              <div class="sp-back-org">To Be Confirmed</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">HT</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Harsh Trivedi</div>
+                <div class="sp-role-pro">Community Advocate; Founder, Dr. Ambedkar Study Group Vancouver</div>
+                <div class="sp-org">Independent</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 1:30 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Harsh Trivedi</div>
+              <div class="sp-back-org">Independent</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">VF</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Ms. Vanessa Fajemisin</div>
+                <div class="sp-role-pro">Co-Director, BLAC Art Center (Surrey); Community Leader & Social Justice Advocate</div>
+                <div class="sp-org">Independent</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 2:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Ms. Vanessa Fajemisin</div>
+              <div class="sp-back-org">Independent</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">VD</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Varinder Dabri</div>
+                <div class="sp-role-pro">Academic / Researcher</div>
+                <div class="sp-org">To Be Confirmed</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 9:00 AM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Varinder Dabri</div>
+              <div class="sp-back-org">To Be Confirmed</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">GS</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Gitanjali Surendran</div>
+                <div class="sp-role-pro">Professor of History</div>
+                <div class="sp-org">Jindal Global Law School, Sonipat, India</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 2:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Gitanjali Surendran</div>
+              <div class="sp-back-org">Jindal Global Law School, Sonipat, India</div>
+              <div class="sp-back-body">Gitanjali Surendran is a professor of history at Jindal Global Law School, Sonipat, India, where she has taught since 2013. She holds a PhD from Harvard University's History Department and master's degrees from Harvard, Oxford and Jawaharlal Nehru University, Delhi. She is the author of Democracy's Dhamma: Buddhism in the Making of Modern India, c1890–1956, published by Cambridge University Press.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">VP</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Vimal Pandey</div>
+                <div class="sp-role-pro">Assistant Professor; Visiting Scholar</div>
+                <div class="sp-org">University of Delhi / Simon Fraser University</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 5:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Vimal Pandey</div>
+              <div class="sp-back-org">University of Delhi / Simon Fraser University</div>
+              <div class="sp-back-body">Dr. Vimal Pandey is an Assistant Professor at the University of Delhi, specializing in international relations and security studies. He earned his doctorate from the School of International Studies at Jawaharlal Nehru University and previously served with the Indian Council of World Affairs (ICWA) at Sapru House. His research focuses on India–Africa relations, African security, and India's national security policy, exploring the intersections of global terrorism, conflict resolution, and the role of ethics and peace in Indian tradition. His research has appeared in Insight on Africa, World Aff...</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15 March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">SM</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Seema Mahi</div>
+                <div class="sp-role-pro">Post-Doctoral Fellow, History Department</div>
+                <div class="sp-org">University of British Columbia</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 8:00 AM & 5:45 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 12:15 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 8:00 AM & 3:30 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 2:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Seema Mahi</div>
+              <div class="sp-back-org">University of British Columbia</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15 March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">SB</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Surjit Bains</div>
+                <div class="sp-role-pro">Treasurer</div>
+                <div class="sp-org">Chetna Association of Canada</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 1:00 PM & 6:30 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 12:30 PM & 5:00 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Surjit Bains</div>
+              <div class="sp-back-org">Chetna Association of Canada</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">PN</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Priti Narayan</div>
+                <div class="sp-role-pro">Assistant Professor of Geography; Executive Member, CISAR</div>
+                <div class="sp-org">University of British Columbia</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 8:00 AM, 9:00 AM & 10:30 AM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Priti Narayan</div>
+              <div class="sp-back-org">University of British Columbia</div>
+              <div class="sp-back-body">Dr. Priti Narayan's research centres on urban processes and politics in India, particularly questions of urban dispossession and belonging, informality of land and labour, and the politics of knowledge production. Her work is informed by collective struggles for tenure security in Chennai. She collaborates on economic and social protections for unorganized workers and urban development in Tamil Nadu, and her writing has appeared in The Times of India, The Hindu, OpenDemocracy, and Kafila. Prior to UBC, she was a postdoctoral fellow at the Princeton Mellon Initiative in Architecture, Urbanism a...</div>
+              <a href="https://geog.ubc.ca/profile/priti-narayan/" target="_blank" class="sp-back-link">🔗 View Full Profile</a>
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15 March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">AM</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Anne Murphy</div>
+                <div class="sp-role-pro">Associate Professor, History; Chair, Punjabi Language, Literature & Sikh Studies; Principal Investigator, Caste in Canada Project</div>
+                <div class="sp-org">University of British Columbia</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 12:15 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 2:00 PM & 3:30 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Anne Murphy</div>
+              <div class="sp-back-org">University of British Columbia</div>
+              <div class="sp-back-body">Anne Murphy is an Associate Professor in the Department of History and Chair of Punjabi Language, Literature and Sikh Studies at UBC. She is a cultural and intellectual historian whose work focuses on the Punjab region of India and Pakistan. She currently holds a British Academy Visiting Fellowship at Royal Holloway University of London (2025). Murphy founded the UBC Interdisciplinary Histories Research Cluster and led two major oral history projects: 'Punjabi in BC' and the 'Caste in Canada' project with co-PI Dr. Suraj Yengde and the Chetna Association of Canada.</div>
+              <a href="https://history.ubc.ca/profile/anne-murphy/" target="_blank" class="sp-back-link">🔗 View Full Profile</a>
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">JB</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Jai Birdi</div>
+                <div class="sp-role-pro">Executive Director</div>
+                <div class="sp-org">Chetna Association of Canada</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 1:30 PM & 2:00 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Jai Birdi</div>
+              <div class="sp-back-org">Chetna Association of Canada</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15 March 16" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">SS</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Mr. Surinder Sandhu</div>
+                <div class="sp-role-pro">Assistant Secretary</div>
+                <div class="sp-org">Chetna Association of Canada</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 4:00 PM</span><span class="sess-role-badge badge-pan">Panelist</span></div><div class="sp-session"><span class="sess-date">March 16</span><span class="sess-time">⏱ 4:30 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Mr. Surinder Sandhu</div>
+              <div class="sp-back-org">Chetna Association of Canada</div>
+              <div class="sp-back-body">Bio coming soon.</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">DR</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Drona Rasali</div>
+                <div class="sp-role-pro">Adjunct Professor, School of Population & Public Health; Director, Emotional Well Being Institute-Canada</div>
+                <div class="sp-org">University of British Columbia</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 9:30 AM</span><span class="sess-role-badge badge-pan">Panelist</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Drona Rasali</div>
+              <div class="sp-back-org">University of British Columbia</div>
+              <div class="sp-back-body">Dr. Drona Rasali was Provincial Chronic Disease Epidemiologist at the Saskatchewan Ministry of Health (2005–2012) and adjunct professor in the Faculty of Kinesiology and Health Studies at the University of Regina (2009–2019). He received the designation of Fellow of the American College of Epidemiology (FACE) in 2014. He served as a doctor of veterinary medicine and senior scientist in the Government of Nepal from 1980 to 1999. He earned his PhD from the University of Manitoba in quantitative genetics, genetic diseases, epidemiology and bioinformatics, his veterinary medicine degree in India, ...</div>
+              
+            </div>
+          </div>
+        </div>
+<div class="speaker-card" data-days="March 15" onclick="this.classList.toggle('flipped')">
+          <div class="sp-inner">
+            <div class="sp-front">
+              <div class="sp-avatar">
+                <div class="sp-photo-frame">KK</div>
+              </div>
+              <div class="sp-info">
+                <div class="sp-name">Dr. Karun Karki</div>
+                <div class="sp-role-pro">Associate Professor, School of Social Work</div>
+                <div class="sp-org">University of British Columbia</div>
+                <div class="sp-sessions"><div class="sp-session"><span class="sess-date">March 15</span><span class="sess-time">⏱ 8:00 AM & 2:45 PM</span><span class="sess-role-badge badge-mod">Moderator</span></div></div>
+                <div class="sp-flip-hint">Tap for bio →</div>
+              </div>
+            </div>
+            <div class="sp-back">
+              <div class="sp-back-name">Dr. Karun Karki</div>
+              <div class="sp-back-org">University of British Columbia</div>
+              <div class="sp-back-body">Dr. Karun K. Karki is an Associate Professor in the School of Social Work at the University of British Columbia. His scholarly inquiries are grounded in critical theories including anti-racism, anti-casteism, anti-colonialism, intersectionality, and anti-oppressive social justice praxis. Drawing on postcolonial theory and posthumanism, he examines biopolitical and necropolitical spaces within nation-states and the persistent processes of exclusion. He explores socio-economic factors influencing health and belonging among racialized diaspora and minoritized communities, including immigrants, re...</div>
+              <a href="https://socialwork.ubc.ca/profile/karun-karki/" target="_blank" class="sp-back-link">🔗 View Full Profile</a>
+            </div>
           </div>
         </div>
       </div>
@@ -824,11 +2175,11 @@ footer strong{color:var(--accent-lt);}
       <div class="car-dots" id="spDots"></div>
       <button class="car-btn" id="spNext">&#8594;</button>
     </div>
-    <p style="font-size:.75rem;color:var(--text-muted);margin-top:14px;">* Speaker details subject to confirmation. Refer to the official document for verified information.</p>
+    <p style="font-size:.75rem;color:var(--text-muted);margin-top:14px;">* Speaker details subject to confirmation. Refer to the official document for verified information. Photos to be added.</p>
   </div>
 </section>
 
-<!-- ──────── VOLUNTEERS ──────── -->
+<!-- VOLUNTEERS -->
 <section id="volunteers">
   <div class="section-inner">
     <div class="sec-label reveal">Community</div>
@@ -837,118 +2188,108 @@ footer strong{color:var(--accent-lt);}
   </div>
   <div class="reel-outer">
     <div class="reel-track">
-      <div class="reel-item"><span class="reel-star">✦</span>Priya Sharma</div><div class="reel-item"><span class="reel-star">✦</span>Arun Kumar</div><div class="reel-item"><span class="reel-star">✦</span>Meena Patil</div><div class="reel-item"><span class="reel-star">✦</span>Sunita Rao</div><div class="reel-item"><span class="reel-star">✦</span>Raj Anand</div><div class="reel-item"><span class="reel-star">✦</span>Deepa Nair</div><div class="reel-item"><span class="reel-star">✦</span>Vikram Salve</div><div class="reel-item"><span class="reel-star">✦</span>Kavita Jadhav</div><div class="reel-item"><span class="reel-star">✦</span>Suresh Mane</div><div class="reel-item"><span class="reel-star">✦</span>Anita Bhosale</div><div class="reel-item"><span class="reel-star">✦</span>Rahul Kamble</div><div class="reel-item"><span class="reel-star">✦</span>Shobha Waghmare</div><div class="reel-item"><span class="reel-star">✦</span>Nilesh Gaikwad</div><div class="reel-item"><span class="reel-star">✦</span>Pooja Meshram</div><div class="reel-item"><span class="reel-star">✦</span>Dinesh Sonar</div>
-      <div class="reel-item"><span class="reel-star">✦</span>Priya Sharma</div><div class="reel-item"><span class="reel-star">✦</span>Arun Kumar</div><div class="reel-item"><span class="reel-star">✦</span>Meena Patil</div><div class="reel-item"><span class="reel-star">✦</span>Sunita Rao</div><div class="reel-item"><span class="reel-star">✦</span>Raj Anand</div><div class="reel-item"><span class="reel-star">✦</span>Deepa Nair</div><div class="reel-item"><span class="reel-star">✦</span>Vikram Salve</div><div class="reel-item"><span class="reel-star">✦</span>Kavita Jadhav</div><div class="reel-item"><span class="reel-star">✦</span>Suresh Mane</div><div class="reel-item"><span class="reel-star">✦</span>Anita Bhosale</div><div class="reel-item"><span class="reel-star">✦</span>Rahul Kamble</div><div class="reel-item"><span class="reel-star">✦</span>Shobha Waghmare</div><div class="reel-item"><span class="reel-star">✦</span>Nilesh Gaikwad</div><div class="reel-item"><span class="reel-star">✦</span>Pooja Meshram</div><div class="reel-item"><span class="reel-star">✦</span>Dinesh Sonar</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Mr. Krishna Kumar <em style="font-size:.75rem;color:var(--text-muted);">&nbsp;UBC</em></div>
+      <div class="reel-item"><span class="reel-star">✦</span>Ms. Arunima Saha</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Mr. Vineeth Byagyanagar</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Mr. Sam Birdi</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Phinder Dulai</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Ms. Riya Singh</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Mr. Sarthak Gautam</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Mrs. Reminder Dosanjh</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Ms. Amrit Sangerha</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Sam Saichaitanya</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Harpal Malhi</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Clovis Bernard</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Scott Riesterer</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Aaliyah Fernandes</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Rohan Kaul</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Upkar</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Sa Ri</div>
+      <!-- duplicate for seamless loop -->
+      <div class="reel-item"><span class="reel-star">✦</span>Mr. Krishna Kumar <em style="font-size:.75rem;color:var(--text-muted);">&nbsp;UBC</em></div>
+      <div class="reel-item"><span class="reel-star">✦</span>Ms. Arunima Saha</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Mr. Vineeth Byagyanagar</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Mr. Sam Birdi</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Phinder Dulai</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Ms. Riya Singh</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Mr. Sarthak Gautam</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Mrs. Reminder Dosanjh</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Ms. Amrit Sangerha</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Sam Saichaitanya</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Harpal Malhi</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Clovis Bernard</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Scott Riesterer</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Aaliyah Fernandes</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Rohan Kaul</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Upkar</div>
+      <div class="reel-item"><span class="reel-star">✦</span>Sa Ri</div>
     </div>
   </div>
 </section>
 
-<!-- ──────── AFTER SYMPOSIUM ──────── -->
+<!-- AFTER SYMPOSIUM -->
 <section id="after" class="bg-alt">
   <div class="section-inner">
     <div class="sec-label reveal">Looking Ahead</div>
-    <h2 class="sec-heading reveal">What to Expect<br>After the Symposium</h2>
-    <div class="after-grid reveal">
-      <div class="after-card"><div class="after-icon">📋</div><div class="after-title">Volunteer-Written Report</div><div class="after-body">A comprehensive report documenting event content, key discussions, and findings from all panels and workshops.</div></div>
-      <div class="after-card"><div class="after-icon">🗺️</div><div class="after-title">Collaborative Action Plan</div><div class="after-body">A jointly developed action plan outlining pathways for advocacy, research, and educational initiatives over the next three years.</div></div>
-      <div class="after-card"><div class="after-icon">🏛️</div><div class="after-title">Emancipation Center Planning</div><div class="after-body">Community consultations and a feasibility study to advance the proposed Dr. Ambedkar Emancipation Center in Canada.</div></div>
-      <div class="after-card"><div class="after-icon">🔬</div><div class="after-title">Deepened Research</div><div class="after-body">Deepening anti-caste scholarship, expanding community outreach, and enhancing knowledge mobilization across academic and public spheres.</div></div>
-      <div class="after-card"><div class="after-icon">🌐</div><div class="after-title">Global Network</div><div class="after-body">Strengthened international connections across Australia, India, Nepal, UK, USA, and Canada for ongoing anti-caste collaboration.</div></div>
-      <div class="after-card"><div class="after-icon">📢</div><div class="after-title">Policy Engagement</div><div class="after-body">Recommendations and findings shared with policymakers to influence anti-discrimination legislation and multicultural policy in Canada.</div></div>
-    </div>
-
-    <!-- Calligraphy CTA -->
-    <div class="calligraphy-cta reveal" style="margin-top:52px;">
-      <div class="cal-question">Should caste be added as a protected<br>category in Canada?</div>
-      <p class="cal-sub">Your voice matters. Contribute to research, share your perspective, and help shape policy through community-driven surveys and voluntary research studies on caste discrimination in Canada.</p>
-      <div class="cta-btns">
-        <a href="#" class="btn-primary">📋 Take the Survey</a>
-        <a href="#" class="btn-outline">🔬 Contribute to Research Studies</a>
+    <h2 class="sec-heading reveal">What to Expect After the Symposium</h2>
+    <div class="after-survey-wrap reveal">
+      <div class="calligraphy-cta">
+        <div class="cal-question">Your story can shape what comes next.</div>
+        <p class="survey-eyebrow">Contribute to Research Studies</p>
+        <p class="survey-body">Researchers studying caste discrimination in Canada need voices like yours. A few minutes of your time directly informs academic work that influences real policy — for communities that have waited long enough.</p>
+        <a href="#" class="btn-survey">Take the Survey</a>
+        <p class="survey-micro">Takes 5–8 minutes &nbsp;·&nbsp; Anonymous &nbsp;·&nbsp; Voluntary</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ──────── APPENDIX ──────── -->
+<!-- APPENDIX -->
 <section id="appendix">
   <div class="section-inner">
     <div class="sec-label reveal">Resources</div>
     <h2 class="sec-heading reveal">Appendix</h2>
     <div class="appendix-list reveal">
-      <a href="#" class="app-item"><span class="app-num">01</span><div><div class="app-title">Report of the ASE 2023</div><div class="app-desc">Full documentation from the previous symposium — findings, discussions, and outcomes from UBC, SFU, UFV & UVic.</div></div><span style="margin-left:auto;color:var(--text-muted);">↗</span></a>
+      <a href="#" class="app-item"><span class="app-num">01</span><div><div class="app-title">Report of the ASE 2023</div><div class="app-desc">Full documentation from the previous symposium — findings, discussions, and outcomes from UBC, SFU, UFV &amp; UVic.</div></div><span style="margin-left:auto;color:var(--text-muted);">↗</span></a>
       <a href="#" class="app-item"><span class="app-num">02</span><div><div class="app-title">Terms of Reference for the Consortium</div><div class="app-desc">Governance framework for the Consortium for the Annihilation of Caste Discrimination in Canada and Beyond.</div></div><span style="margin-left:auto;color:var(--text-muted);">↗</span></a>
-      <a href="https://docs.google.com/document/u/0/d/1I7MlRvYqIVigGLnyU8qBsuGCxOJJwmrsO_Ep3SE_vHA/edit" target="_blank" class="app-item"><span class="app-num">03</span><div><div class="app-title">Moderators & Panelists — Full Profiles</div><div class="app-desc">Detailed biographies and institutional affiliations of all confirmed speakers and moderators.</div></div><span style="margin-left:auto;color:var(--text-muted);">↗</span></a>
-      <a href="https://docs.google.com/document/d/1-mMspfE1doG7IfmUS8RGDsJyqRvjbI80/edit" target="_blank" class="app-item"><span class="app-num">04</span><div><div class="app-title">Full Event Outline & Schedule</div><div class="app-desc">Complete official schedule with session descriptions, locations, and timing details for both days.</div></div><span style="margin-left:auto;color:var(--text-muted);">↗</span></a>
+      <a href="https://docs.google.com/document/u/0/d/1I7MlRvYqIVigGLnyU8qBsuGCxOJJwmrsO_Ep3SE_vHA/edit" target="_blank" class="app-item"><span class="app-num">03</span><div><div class="app-title">Moderators &amp; Panelists — Full Profiles</div><div class="app-desc">Detailed biographies and institutional affiliations of all confirmed speakers and moderators.</div></div><span style="margin-left:auto;color:var(--text-muted);">↗</span></a>
+      <a href="https://docs.google.com/document/d/1-mMspfE1doG7IfmUS8RGDsJyqRvjbI80/edit" target="_blank" class="app-item"><span class="app-num">04</span><div><div class="app-title">Full Event Outline &amp; Schedule</div><div class="app-desc">Complete official schedule with session descriptions, locations, and timing details for both days.</div></div><span style="margin-left:auto;color:var(--text-muted);">↗</span></a>
     </div>
   </div>
 </section>
 
-<!-- ──────── QUOTES ──────── -->
+<!-- QUOTES -->
 <section id="quotes" class="bg-alt">
   <div class="section-inner">
     <div class="sec-label reveal">Reflections</div>
-    <h2 class="sec-heading reveal">Quotes & Poems</h2>
+    <h2 class="sec-heading reveal">Quotes &amp; Poems</h2>
     <div class="quotes-grid reveal">
-
-      <div class="quote-card">
-        <span class="q-mark">"</span>
-        <div class="q-text">I am particularly encouraged by the symposium's emphasis on addressing caste-based discrimination within the South Asian diaspora, enhancing safeguards and networks, and advancing evidence-based research and capacity building. The planned discussions, along with the screening and dialogue around Origin, promise to generate meaningful insights into the intersections of caste, race, and other structural inequities.</div>
-        <div class="q-author">Dr. Moussa Magassa — Associate Vice-President, Mount Royal University</div>
-      </div>
-
-      <div class="quote-card">
-        <span class="q-mark">"</span>
-        <div class="q-text">The theme is both significant and timely, and the effort to create space for dialogue, research, and community engagement around caste equity is commendable. Initiatives like this play a vital role in advancing awareness and meaningful change. The focus on caste-based discrimination, social justice, and economic equality — particularly within the diaspora context — makes the symposium both meaningful and necessary. Bringing together scholars, activists, and community leaders in one forum will undoubtedly contribute to deeper understanding, constructive dialogue, and concrete action.</div>
-        <div class="q-author">Manav — Additional District and Sessions Judge, Punjab, India</div>
-      </div>
-
-      <div class="quote-card">
-        <span class="q-mark">"</span>
-        <div class="q-text">I measure the progress of a community by the degree of progress which women have achieved.</div>
-        <div class="q-author">Dr. B.R. Ambedkar</div>
-      </div>
-
-      <div class="quote-card">
-        <span class="q-mark">"</span>
-        <div class="q-text">So long as you do not achieve social liberty, whatever freedom is provided by the law is of no avail to you.</div>
-        <div class="q-author">Dr. B.R. Ambedkar</div>
-      </div>
-
-      <div class="quote-card" style="background:linear-gradient(135deg,#eaf2ff,#f0f7ff);">
-        <div style="font-family:'Dancing Script',cursive;font-size:1.4rem;color:var(--blue-mid);line-height:2.1;margin-bottom:14px;">
-          We did not choose this skin,<br>
-          but we chose to rise —<br>
-          Not as the broken they named us,<br>
-          but as the unbowed,<br>
-          the unbroken, the luminous.
-        </div>
-        <div class="q-author">— ASE 2026 Community Reflection</div>
-      </div>
-
+      <div class="quote-card"><span class="q-mark">"</span><div class="q-text">I am particularly encouraged by the symposium's emphasis on addressing caste-based discrimination within the South Asian diaspora, enhancing safeguards and networks, and advancing evidence-based research and capacity building. The planned discussions, along with the screening and dialogue around Origin, promise to generate meaningful insights into the intersections of caste, race, and other structural inequities.</div><div class="q-author">Dr. Moussa Magassa — Associate Vice-President, Mount Royal University</div></div>
+      <div class="quote-card"><span class="q-mark">"</span><div class="q-text">The theme is both significant and timely, and the effort to create space for dialogue, research, and community engagement around caste equity is commendable. Initiatives like this play a vital role in advancing awareness and meaningful change. The focus on caste-based discrimination, social justice, and economic equality — particularly within the diaspora context — makes the symposium both meaningful and necessary.</div><div class="q-author">Manav — Additional District and Sessions Judge, Punjab, India</div></div>
+      <div class="quote-card"><span class="q-mark">"</span><div class="q-text">I measure the progress of a community by the degree of progress which women have achieved.</div><div class="q-author">Dr. B.R. Ambedkar</div></div>
+      <div class="quote-card"><span class="q-mark">"</span><div class="q-text">So long as you do not achieve social liberty, whatever freedom is provided by the law is of no avail to you.</div><div class="q-author">Dr. B.R. Ambedkar</div></div>
+      <div class="quote-card" style="background:linear-gradient(135deg,#eaf2ff,#f0f7ff);"><div style="font-family:var(--f-script);font-size:1.4rem;color:var(--blue-mid);line-height:2.0;margin-bottom:14px;">We did not choose this skin,<br>but we chose to rise —<br>Not as the broken they named us,<br>but as the unbowed,<br>the unbroken, the luminous.</div><div class="q-author">— ASE 2026 Community Reflection</div></div>
     </div>
   </div>
 </section>
 
-<!-- ──────── FOOTER ──────── -->
+<!-- FOOTER -->
 <footer>
   <p><strong>ASE 2026</strong> — Dr. Ambedkar Symposium on Emancipation</p>
   <p style="margin-top:8px;">March 15–16, 2026 &nbsp;·&nbsp; Vancouver, British Columbia, Canada</p>
-  <p style="margin-top:8px;">Organized by <strong>Chetna Association of Canada</strong> in partnership with UBC, SFU, UFV & KPU</p>
+  <p style="margin-top:8px;">Organized by <strong>Chetna Association of Canada</strong> in partnership with UBC, SFU, UFV &amp; KPU</p>
   <p style="margin-top:6px;"><a href="https://chetna.ca" target="_blank" style="color:#ffffff;text-decoration:none;">chetna.ca ↗</a></p>
   <p style="margin-top:18px;font-size:.72rem;opacity:.35;">© 2026 Chetna Association of Canada. All rights reserved.</p>
 </footer>
 
-<!-- ══════════════════════════════════════
-     SCRIPTS
-══════════════════════════════════════ -->
 <script>
-/* ── NAV ── */
+/* NAV */
 const hbg=document.getElementById('hamburger'),drw=document.getElementById('drawer'),ovl=document.getElementById('overlay');
 function toggleNav(){hbg.classList.toggle('open');drw.classList.toggle('open');ovl.classList.toggle('open');document.body.style.overflow=drw.classList.contains('open')?'hidden':'';}
 hbg.addEventListener('click',toggleNav);ovl.addEventListener('click',toggleNav);
 drw.querySelectorAll('a').forEach(a=>a.addEventListener('click',toggleNav));
 
-/* ── ACCORDION ── */
+/* ACCORDION */
 document.querySelectorAll('.acc-header').forEach(h=>{
   h.addEventListener('click',()=>{
     const item=h.parentElement,isOpen=item.classList.contains('open');
@@ -957,30 +2298,18 @@ document.querySelectorAll('.acc-header').forEach(h=>{
   });
 });
 
-/* ── TIMELINE ── */
-document.querySelectorAll('.tl-node').forEach(node=>{
-  node.addEventListener('click',()=>{
-    const wasActive=node.classList.contains('active');
-    document.querySelectorAll('.tl-node.active').forEach(n=>n.classList.remove('active'));
-    if(!wasActive)node.classList.add('active');
-  });
-});
-document.addEventListener('click',e=>{
-  if(!e.target.closest('.tl-node'))document.querySelectorAll('.tl-node.active').forEach(n=>n.classList.remove('active'));
-});
-
-/* ── GENERIC CAROUSEL FACTORY ── */
+/* GENERIC CAROUSEL FACTORY */
 function makeCarousel(trackId,prevId,nextId,dotsId,getCards){
   const track=document.getElementById(trackId);
   const dotsEl=document.getElementById(dotsId);
   let cur=0;
-  function cards(){return getCards();}
   function vis(){return window.innerWidth<600?1:window.innerWidth<900?2:3;}
-  function maxI(){return Math.max(0,cards().length-vis());}
-  function cw(){const c=cards();return c.length?c[0].offsetWidth+20:0;}
+  function maxI(){const c=getCards();return Math.max(0,c.length-vis());}
+  function cw(){const c=getCards();return c.length?c[0].offsetWidth+18:0;}
   function buildDots(){
     dotsEl.innerHTML='';
-    for(let i=0;i<=maxI();i++){
+    const m=maxI();
+    for(let i=0;i<=m;i++){
       const d=document.createElement('div');d.className='cdot'+(i===cur?' active':'');
       d.addEventListener('click',()=>goTo(i));dotsEl.appendChild(d);
     }
@@ -992,39 +2321,42 @@ function makeCarousel(trackId,prevId,nextId,dotsId,getCards){
   }
   document.getElementById(prevId).addEventListener('click',()=>goTo(cur-1));
   document.getElementById(nextId).addEventListener('click',()=>goTo(cur+1));
-  window.addEventListener('resize',()=>{buildDots();goTo(cur);});
+  window.addEventListener('resize',()=>{buildDots();goTo(Math.min(cur,maxI()));});
   buildDots();
   return {goTo,buildDots};
 }
 
-/* Emancipation cards */
+/* Emancipation carousel */
 makeCarousel('emanTrack','emanPrev','emanNext','emanDots',
   ()=>Array.from(document.querySelectorAll('#emanTrack .flip-card')));
 
-/* Speakers carousel */
-let currentDay=1;
-const spCar=makeCarousel('speakersTrack','spPrev','spNext','spDots',
-  ()=>Array.from(document.querySelectorAll(`#speakersTrack .speaker-card[data-day="${currentDay}"]`)));
+/* Speakers carousel with filter */
+let activeDay='all';
+function visibleSpeakers(){
+  return Array.from(document.querySelectorAll('#speakersTrack .speaker-card'))
+    .filter(c=>c.style.display!=='none');
+}
 
-document.getElementById('speakerTabs').querySelectorAll('.day-tab').forEach(tab=>{
+const spCar=makeCarousel('speakersTrack','spPrev','spNext','spDots',visibleSpeakers);
+
+document.getElementById('speakerFilters').querySelectorAll('.day-tab').forEach(tab=>{
   tab.addEventListener('click',()=>{
-    document.querySelectorAll('.day-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('#speakerFilters .day-tab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
-    currentDay=parseInt(tab.dataset.day);
-    // show/hide cards
+    activeDay=tab.dataset.day;
     document.querySelectorAll('#speakersTrack .speaker-card').forEach(c=>{
-      c.style.display=parseInt(c.dataset.day)===currentDay?'block':'none';
+      const days=c.dataset.days||'';
+      const show=activeDay==='all'||days.includes(activeDay);
+      c.style.display=show?'block':'none';
       c.classList.remove('flipped');
     });
     document.getElementById('speakersTrack').style.transform='translateX(0)';
-    spCar.buildDots();
-    spCar.goTo(0);
+    spCar.buildDots();spCar.goTo(0);
   });
 });
-// init dots
 spCar.buildDots();
 
-/* ── WAVE CANVAS ── */
+/* WAVE CANVAS */
 (function(){
   const canvas=document.getElementById('waveCanvas');
   if(!canvas)return;
@@ -1032,51 +2364,30 @@ spCar.buildDots();
   let W,H,threads=[];
   function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;}
   resize();window.addEventListener('resize',()=>{resize();init();});
-
   function Thread(){
     this.reset=function(){
-      this.x=Math.random()*W;
-      this.y=Math.random()*H;
-      this.len=80+Math.random()*180;
-      this.speed=.18+Math.random()*.35;
-      this.angle=Math.PI*(.8+Math.random()*.4);
-      this.opacity=.08+Math.random()*.18;
-      this.width=.4+Math.random()*1.2;
-      this.waveAmp=10+Math.random()*22;
-      this.waveFreq=.008+Math.random()*.014;
-      this.phase=Math.random()*Math.PI*2;
-      this.progress=Math.random();
-    };
-    this.reset();
+      this.x=Math.random()*W;this.y=Math.random()*H;this.len=80+Math.random()*180;
+      this.speed=.18+Math.random()*.35;this.angle=Math.PI*(.8+Math.random()*.4);
+      this.opacity=.08+Math.random()*.18;this.width=.4+Math.random()*1.2;
+      this.waveAmp=10+Math.random()*22;this.waveFreq=.008+Math.random()*.014;
+      this.phase=Math.random()*Math.PI*2;this.progress=Math.random();
+    };this.reset();
   }
-
-  function init(){
-    threads=[];
-    const count=Math.floor(W/12);
-    for(let i=0;i<count;i++){const t=new Thread();t.progress=Math.random();threads.push(t);}
-  }
+  function init(){threads=[];const count=Math.floor(W/12);for(let i=0;i<count;i++){const t=new Thread();t.progress=Math.random();threads.push(t);}}
   init();
-
   let frame=0;
   function draw(){
-    ctx.clearRect(0,0,W,H);
-    frame++;
+    ctx.clearRect(0,0,W,H);frame++;
     threads.forEach(t=>{
-      t.progress+=t.speed/t.len;
-      if(t.progress>1){t.reset();t.progress=0;}
-      const steps=60;
-      ctx.beginPath();
-      ctx.strokeStyle=`rgba(120,180,255,${t.opacity})`;
-      ctx.lineWidth=t.width;
-      ctx.lineCap='round';
+      t.progress+=t.speed/t.len;if(t.progress>1){t.reset();t.progress=0;}
+      const steps=60;ctx.beginPath();ctx.strokeStyle=`rgba(120,180,255,${t.opacity})`;
+      ctx.lineWidth=t.width;ctx.lineCap='round';
       for(let i=0;i<steps;i++){
-        const p=t.progress-i/(steps*3);
-        if(p<0)continue;
+        const p=t.progress-i/(steps*3);if(p<0)continue;
         const dist=p*t.len;
         const wx=Math.sin(dist*t.waveFreq+t.phase+frame*.008)*t.waveAmp;
         const wy=Math.cos(dist*t.waveFreq*1.3+t.phase)*t.waveAmp*.5;
-        const x=t.x+Math.cos(t.angle)*dist+wx;
-        const y=t.y+Math.sin(t.angle)*dist+wy;
+        const x=t.x+Math.cos(t.angle)*dist+wx;const y=t.y+Math.sin(t.angle)*dist+wy;
         if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
       }
       ctx.stroke();
@@ -1086,7 +2397,7 @@ spCar.buildDots();
   draw();
 })();
 
-/* ── SCROLL REVEAL ── */
+/* SCROLL REVEAL */
 const io=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');io.unobserve(e.target);}});
 },{threshold:.08});
